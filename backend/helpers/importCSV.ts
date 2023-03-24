@@ -133,3 +133,82 @@ export async function importJourneys(csvFiles: string[]) {
   }
 }
 
+export async function importStations(csvFile: string) {
+    try {
+        // Connect to MongoDB Atlas
+        const uri = process.env.MONGO_URI!;
+        const client = new MongoClient(uri);
+        await client.connect();
+    
+        // Get a reference to the "journeys" collection in the "helsinki-city-bike-db" database
+        const db = client.db('helsinki-city-bike-db');
+        const collection = db.collection<Journey>('stations');
+    
+        const batchSize = 1000;
+        let counter = 0;
+        let bulkOperation = collection.initializeOrderedBulkOp();
+    
+        // Define the executeBatchAndReset function here
+        async function executeBatchAndReset() {
+          // Execute bulk write operation
+          await bulkOperation.execute();
+    
+          // New bulk operation object created for the next batch.
+          bulkOperation = collection.initializeOrderedBulkOp();
+        }
+    
+        // Create a read stream and a readline interface
+        const readStream = fs.createReadStream(csvFile);
+        const readLine = readline.createInterface({
+          input: readStream,
+          crlfDelay: Infinity,
+        });
+    
+        let isFirstLine = true;
+        const headers = ['ID','Name','Osoite','Kaupunki','x','y']
+    
+        console.log(`Importing data to DB. Please Wait...`)
+        // Read and process the CSV file line by line
+        for await (const line of readLine) {
+          if (isFirstLine) {
+            isFirstLine = false;
+            continue; // Skip the header line
+          }
+    
+          const row: StationRow = await new Promise((resolve, reject) => {
+            csv({ headers: headers })
+              .on('data', (data) => resolve(data))
+              .on('error', (err) => reject(err))
+              .end(line);
+          });
+
+            const station: Station = {
+              _id: row['ID'],
+              name: row['Name'],
+              address: row['Osoite'],
+              city: row['Kaupunki'],
+              x: row['x'],
+              y: row['y'],
+            };
+    
+            counter++;
+            // Add insert operation to bulk write object
+            bulkOperation.insert(station);
+    
+            // Execute the batch if batchsize reached
+            if (counter % batchSize === 0) {
+              await executeBatchAndReset();
+            }
+        }
+    
+        // Execute the remaining bulk write operations and close the database connection
+        if (counter % batchSize !== 0) {
+          await executeBatchAndReset();
+        }
+        console.log(`Import completed for ${csvFile}`);
+        await client.close();
+    
+      } catch (err) {
+        console.error(err);
+      }
+}
