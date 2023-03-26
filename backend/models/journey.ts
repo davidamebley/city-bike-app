@@ -4,11 +4,11 @@ import mongoose from 'mongoose';
 const journeySchema = new mongoose.Schema({
   departure: Date,
   return: Date,
-  departureStationId: String,
-  departureStationName: String,
-  returnStationId: String,
-  returnStationName: String,
-  coveredDistance: Number,
+  departure_station_id: String,
+  departure_station_name: String,
+  return_station_id: String,
+  return_station_name: String,
+  covered_distance: Number,
   duration: Number,
 });
 
