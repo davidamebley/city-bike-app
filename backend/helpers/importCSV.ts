@@ -29,7 +29,6 @@ interface Station {
     _id: string;
     name: string;
     address: string;
-    city: string;
     x: number;
     y: number;
 }
@@ -38,16 +37,15 @@ type StationRow = {
     'ID': string,
     'Name': string,
     'Osoite':string,
-    'Kaupunki':string,
-    'x':number,
-    'y':number
+    'x':string,
+    'y':string
 }
 
 export async function importJourneys(csvFiles: string[]) {
   for (let index = 0; index < csvFiles.length; index++) {
     try {
         // Connect to MongoDB Atlas
-        const uri = process.env.MONGO_URI!;
+        const uri = process.env.MONGO_DB!;
         const client = new MongoClient(uri);
         await client.connect();
     
@@ -136,7 +134,7 @@ export async function importJourneys(csvFiles: string[]) {
 export async function importStations(csvFile: string) {
     try {
         // Connect to MongoDB Atlas
-        const uri = process.env.MONGO_URI!;
+        const uri = process.env.MONGO_DB!;
         const client = new MongoClient(uri);
         await client.connect();
     
@@ -165,30 +163,35 @@ export async function importStations(csvFile: string) {
         });
     
         let isFirstLine = true;
-        const headers = ['ID','Name','Osoite','Kaupunki','x','y']
     
         console.log(`Importing data to DB. Please Wait...`)
         // Read and process the CSV file line by line
+        let headers: string[] = []; // Initialize an empty headers array
         for await (const line of readLine) {
-          if (isFirstLine) {
-            isFirstLine = false;
-            continue; // Skip the header line
-          }
-    
-          const row: StationRow = await new Promise((resolve, reject) => {
+            if (isFirstLine) {
+                headers = line.split(','); // Set headers to the values from the first line of the CSV file
+                isFirstLine = false;
+                continue; // Skip the header line
+            }
+            
+            const row: StationRow = await new Promise((resolve, reject) => {
             csv({ headers: headers })
               .on('data', (data) => resolve(data))
               .on('error', (err) => reject(err))
               .end(line);
-          });
+            });
+
+        //   console.log(`Row: ${JSON.stringify(row)}`)
+          const x_coord = parseFloat(row['x']);
+          const y_coord = parseFloat(row['y']);
+        //   console.log(`id: ${row['ID']} name: ${row['Name']} address: ${row['Osoite']} x: ${x_coord} y: ${row['y']}`)
 
             const station: Station = {
               _id: row['ID'],
               name: row['Name'],
               address: row['Osoite'],
-              city: row['Kaupunki'],
-              x: row['x'],
-              y: row['y'],
+              x: x_coord,
+              y: y_coord,
             };
     
             counter++;

@@ -6,14 +6,9 @@ import path from 'path';
 import { connectDB } from './config/db'
 import journeyRoutes from './routes/journeyRoutes';
 import stationRoutes from './routes/stationRoutes';
-import { importJourneys } from './helpers/importCSV';
 
 // Connect to MongoDB
 connectDB();
-
-// Initially Import Journeys from CSV to DB.
-const csvFiles = [path.join(__dirname, '../../2021-05.csv'), path.join(__dirname, '../../2021-06.csv'), path.join(__dirname, '../../2021-07.csv')];
-// importJourneys(csvFiles);
 
 const app = express();
 
