@@ -14,6 +14,7 @@ import {
   } from '@mui/material';
 
 import { SingleStationView } from './SingleStationView';
+import '../styles/stationList.css';
 
 interface Station {
   _id: string;
