@@ -103,7 +103,7 @@ export const JourneyList: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>
                 <TableSortLabel
                   active={sortBy === 'departure_station_name'}
                   direction={sortOrder}
@@ -112,7 +112,7 @@ export const JourneyList: React.FC = () => {
                   Departure Station
                 </TableSortLabel>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>
                 <TableSortLabel
                   active={sortBy === 'return_station_name'}
                   direction={sortOrder}
@@ -121,7 +121,7 @@ export const JourneyList: React.FC = () => {
                   Return Station
                 </TableSortLabel>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>
               <TableSortLabel
                   active={sortBy === 'covered_distance'}
                   direction={sortOrder}
@@ -130,7 +130,7 @@ export const JourneyList: React.FC = () => {
                   Distance Covered (km)
                 </TableSortLabel>
               </TableCell>
-              <TableCell>
+              <TableCell sx={{ fontWeight: 'bold' }}>
                 <TableSortLabel
                   active={sortBy === 'duration'}
                   direction={sortOrder}
