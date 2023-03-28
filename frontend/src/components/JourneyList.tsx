@@ -13,6 +13,8 @@ import {
   CircularProgress
 } from '@mui/material';
 
+import '../styles/journeyList.css';
+
 interface Journey {
   departure: string;
   return: string;
@@ -80,16 +82,19 @@ export const JourneyList: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Journeys</h2>
+    <div className='container__journey-list'>
+      <h2 className='header__journeys'>Journeys</h2>
+      <div className='journey-search-field'>
       <TextField
         label="Search"
+        placeholder="Search departure or return station"
+        fullWidth
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+      </div>
       {loading ? (
-        <div 
-            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  height: '100px' }}>
+        <div className="spinner" >
           <CircularProgress />
         </div>
 

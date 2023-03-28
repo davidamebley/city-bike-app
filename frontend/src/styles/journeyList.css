@@ -1,0 +1,39 @@
+/* JourneyList.module.css */
+.container__journey-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 1rem;
+}
+
+.header__journeys {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.journey-search-field {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+@media screen and (min-width: 768px) {
+  .journey-search-field {
+    width: 20rem;
+    margin-bottom: 2rem;
+  }
+}
