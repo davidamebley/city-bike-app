@@ -25,10 +25,10 @@ export const SingleStationView: React.FC<SingleStationViewProps> = ({ stationId 
   return (
     stationInfo && (
       <div>
-        <h3>{stationInfo.station.name}</h3>
+        {/* <h3>{stationInfo.station.name}</h3>
         <p>Address: {stationInfo.station.address}</p>
         <p>Journeys starting: {stationInfo.journeysStarting}</p>
-        <p>Journeys ending: {stationInfo.journeysEnding}</p>
+        <p>Journeys ending: {stationInfo.journeysEnding}</p> */}
       </div>
     )
   );

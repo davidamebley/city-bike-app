@@ -1,4 +1,4 @@
-// stations.ts
+// stationRoutes.ts
 import express from 'express';
 import Station from '../models/station';
 import Journey from '../models/journey';

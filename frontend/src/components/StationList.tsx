@@ -9,11 +9,13 @@ interface Station {
 
 export const StationList: React.FC = () => {
   const [stations, setStations] = useState<Station[]>([]);
+  const serverUrl = process.env.REACT_APP_SERVER_URL;
+//   console.log(`Server url: ${serverUrl}`)
 
   useEffect(() => {
-    fetch('/api/stations')
-      .then((res) => res.json())
-      .then((data) => setStations(data));
+    fetch(`${serverUrl}/api/stations`)
+    .then((res) => res.json())
+    .then((data) => setStations(data.stations));
   }, []);
 
   return (
