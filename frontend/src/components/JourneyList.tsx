@@ -88,13 +88,10 @@ export const JourneyList: React.FC = () => {
         onChange={(e) => setSearch(e.target.value)}
       />
       {loading ? (
-        <TablePagination
-        count={totalCount}
-        page={page}
-        onPageChange={handlePageChange}
-        rowsPerPage={limit}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        <div 
+            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  height: '100px' }}>
+          <CircularProgress />
+        </div>
 
       ) : (
         <TableContainer component={Paper}>
@@ -152,6 +149,13 @@ export const JourneyList: React.FC = () => {
         </Table>
       </TableContainer>
       )}
+      <TablePagination
+        count={totalCount}
+        page={page}
+        onPageChange={handlePageChange}
+        rowsPerPage={limit}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        />
     </div>
   );
 };
