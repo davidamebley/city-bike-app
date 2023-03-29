@@ -33,34 +33,32 @@ export const getJourneys = async (req: any, res: any) => {
     try {
         const journeys = await Journey.find(searchQuery).skip(skip).limit(limit).lean();
         // lean returns plain JavaScript objects instead of Mongoose documents, which can be faster to work with
-
+      
         // Check if totalCount is in cache
-        let totalCount: number | undefined = cache.get('totalCount');
-
+        let totalCount: number | undefined;
+      
         // Search
         if (search) {
-            totalCount = await Journey.countDocuments(searchQuery);
-          } else {
-            if (totalCount === undefined) {
-              totalCount = await Journey.countDocuments();
-              cache.set('totalCount', totalCount);
-            }
-        }
-
-        // If totalCount is not in cache, fetch from database and set cache
-        if (totalCount === undefined) {
+          totalCount = await Journey.countDocuments(searchQuery);
+        } else {
+          totalCount = cache.get('totalCount');
+          
+          // If totalCount is not in cache, fetch from database and set cache
+          if (totalCount === undefined) {
             totalCount = await Journey.countDocuments();
             cache.set('totalCount', totalCount);
+          }
         }
-
+      
         res.status(200).json({
-            page,
-            limit,
-            totalPages: Math.ceil(totalCount / limit),
-            totalCount,
-            journeys
+          page,
+          limit,
+          totalPages: Math.ceil(totalCount / limit),
+          totalCount,
+          journeys
         });
-    } catch (error) {
+      } catch (error) {
         res.status(500).json({ error: 'An error occurred while fetching journeys.' });
-    }
+      }
+      
 }

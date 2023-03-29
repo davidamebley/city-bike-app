@@ -151,16 +151,20 @@ export const JourneyList: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
+          <TableBody>
+            <TableRow>
+                <TablePagination
+                    count={totalCount}
+                    page={page - 1}
+                    onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}
+                    rowsPerPage={limit}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </TableRow>
+          </TableBody>
         </Table>
       </TableContainer>
       )}
-      <TablePagination
-        count={totalCount}
-        page={page - 1}
-        onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}
-        rowsPerPage={limit}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        />
     </div>
   );
 };

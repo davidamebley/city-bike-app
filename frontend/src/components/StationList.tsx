@@ -76,7 +76,7 @@ export const StationList: React.FC = () => {
       <div className='station-search-field'>
       <TextField
         label="Search"
-        placeholder="Search station name"
+        placeholder="Search station name or address"
         fullWidth
         value={search}
         onChange={(e) => setSearch(e.target.value)}
@@ -112,16 +112,20 @@ export const StationList: React.FC = () => {
               </TableRow>
             ))}
           </TableBody>
+          <TableBody>
+            <TableRow>
+                <TablePagination
+                    count={totalCount}
+                    page={page - 1}
+                    onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}
+                    rowsPerPage={limit}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </TableRow>
+          </TableBody>
         </Table>
       </TableContainer>
       )}
-      <TablePagination
-        count={totalCount}
-        page={page - 1}
-        onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}
-        rowsPerPage={limit}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        />
     </div>
   );
 };
