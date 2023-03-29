@@ -5,6 +5,7 @@
   margin: 0 auto;
   max-width: 1200px;
   padding: 1rem;
+  padding-top: 0;
 }
 
 .header__journeys {
@@ -16,7 +17,14 @@
 .journey-search-field {
   width: 100%;
   max-width: 600px;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+}
+.fixedWidthCol1 {
+  width: 15rem;
+}
+
+.fixedWidthCol2 {
+  width: 8rem;
 }
 
 .spinner {
@@ -33,6 +41,6 @@
 @media screen and (min-width: 768px) {
   .journey-search-field {
     width: 20rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 }

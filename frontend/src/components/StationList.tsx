@@ -76,7 +76,7 @@ export const StationList: React.FC = () => {
       <div className='station-search-field'>
       <TextField
         label="Search"
-        placeholder="Search station name or address"
+        placeholder="Search station"
         fullWidth
         value={search}
         onChange={(e) => setSearch(e.target.value)}
@@ -92,12 +92,12 @@ export const StationList: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>
+              <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol1'>
                 <TableSortLabel>
                   Station ID
                 </TableSortLabel>
               </TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>
+              <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol2'>
                 <TableSortLabel>
                   Station Name
                 </TableSortLabel>
@@ -107,8 +107,8 @@ export const StationList: React.FC = () => {
           <TableBody>
             {stations.map((station, index) => (
               <TableRow key={index}>
-                <TableCell>{station._id}</TableCell>
-                <TableCell>{station.name}</TableCell>
+                <TableCell className='fixedWidthCol1'>{station._id}</TableCell>
+                <TableCell className='fixedWidthCol2'>{station.name}</TableCell>
               </TableRow>
             ))}
           </TableBody>

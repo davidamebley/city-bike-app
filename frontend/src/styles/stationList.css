@@ -3,8 +3,9 @@
   flex-direction: column;
   align-items: flex-start;
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 768px;
   padding: 1rem;
+  padding-top: 0;
 }
 
 .header__stations {
@@ -16,7 +17,14 @@
 .station-search-field {
   width: 100%;
   max-width: 600px;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+}
+.fixedWidthCol1 {
+  width: 10rem;
+}
+
+.fixedWidthCol2 {
+  width: 25rem;
 }
 
 .spinner {
@@ -33,6 +41,6 @@
 @media screen and (min-width: 768px) {
   .station-search-field {
     width: 20rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 }

@@ -103,7 +103,7 @@ export const JourneyList: React.FC = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }}>
+              <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol1'>
                 <TableSortLabel
                   active={sortBy === 'departure_station_name'}
                   direction={sortOrder}
@@ -112,7 +112,7 @@ export const JourneyList: React.FC = () => {
                   Departure Station
                 </TableSortLabel>
               </TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>
+              <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol1'>
                 <TableSortLabel
                   active={sortBy === 'return_station_name'}
                   direction={sortOrder}
@@ -121,7 +121,7 @@ export const JourneyList: React.FC = () => {
                   Return Station
                 </TableSortLabel>
               </TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>
+              <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol2'>
               <TableSortLabel
                   active={sortBy === 'covered_distance'}
                   direction={sortOrder}
@@ -130,7 +130,7 @@ export const JourneyList: React.FC = () => {
                   Distance Covered (km)
                 </TableSortLabel>
               </TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }}>
+              <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol2'>
                 <TableSortLabel
                   active={sortBy === 'duration'}
                   direction={sortOrder}
@@ -144,10 +144,10 @@ export const JourneyList: React.FC = () => {
           <TableBody>
             {journeys.map((journey, index) => (
               <TableRow key={index}>
-                <TableCell>{journey.departure_station_name}</TableCell>
-                <TableCell>{journey.return_station_name}</TableCell>
-                <TableCell>{journey.covered_distance / 1000}</TableCell>
-                <TableCell>{journey.duration / 60}</TableCell>
+                <TableCell className='fixedWidthCol1'>{journey.departure_station_name}</TableCell>
+                <TableCell className='fixedWidthCol1'>{journey.return_station_name}</TableCell>
+                <TableCell className='fixedWidthCol2'>{(journey.covered_distance / 1000).toFixed(3)}</TableCell>
+                <TableCell className='fixedWidthCol2'>{(journey.duration / 60).toFixed(3)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
