@@ -93,14 +93,10 @@ export const StationList: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol1'>
-                <TableSortLabel>
                   Station ID
-                </TableSortLabel>
               </TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol2'>
-                <TableSortLabel>
                   Station Name
-                </TableSortLabel>
               </TableCell>
             </TableRow>
           </TableHead>

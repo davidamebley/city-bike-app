@@ -12,6 +12,8 @@ export const getJourneys = async (req: any, res: any) => {
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;    // Specifies the number of documents to skip
     const search = req.query.search || '';
+    const sortBy = req.query.sortBy || 'departure_station_name';
+    const sortOrder = req.query.sortOrder;
 
     const searchQuery = search
     ? {
@@ -29,9 +31,14 @@ export const getJourneys = async (req: any, res: any) => {
         ],
       }
     : {};
+      
 
     try {
-        const journeys = await Journey.find(searchQuery).skip(skip).limit(limit).lean();
+        const journeys = await Journey.find(searchQuery)
+            .skip(skip)
+            .limit(limit)
+            .sort({ [sortBy]: sortOrder === 'asc' ? 1 : -1 })
+            .lean();
         // lean returns plain JavaScript objects instead of Mongoose documents, which can be faster to work with
       
         // Check if totalCount is in cache
