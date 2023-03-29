@@ -45,7 +45,7 @@ const fetchJourneys = async (
 export const JourneyList: React.FC = () => {
   const [journeys, setJourneys] = useState<Journey[]>([]);
   const [totalCount, setTotalCount] = useState(0);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('departure_station_name');
@@ -69,7 +69,7 @@ export const JourneyList: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setLimit(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(1);
   };
 
   const handleSort = (column: string) => {
@@ -156,8 +156,8 @@ export const JourneyList: React.FC = () => {
       )}
       <TablePagination
         count={totalCount}
-        page={page}
-        onPageChange={handlePageChange}
+        page={page - 1}
+        onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}
         rowsPerPage={limit}
         onRowsPerPageChange={handleChangeRowsPerPage}
         />

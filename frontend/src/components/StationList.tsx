@@ -29,31 +29,36 @@ const fetchStations = async (
     setStations: React.Dispatch<React.SetStateAction<Station[]>>,
     setTotalCount: React.Dispatch<React.SetStateAction<number>>
   ) => {
-    const response = await fetch(
-      `${serverUrl}/api/stations?page=${page}&limit=${limit}&search=${search}`
-    );
+    const requestUrl = `${serverUrl}/api/stations?page=${page}&limit=${limit}&search=${search}`;
+    const response = await fetch(requestUrl);
     const data = await response.json();
     setStations(data.stations);
     setTotalCount(data.totalCount);
-  };
+};
+  
+  
 
 export const StationList: React.FC = () => {
   const [stations, setStations] = useState<Station[]>([]);
   const [totalCount, setTotalCount] = useState(0);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
 
   useEffect(() => {
-    setLoading(true); // Set loading to true when fetching data
-    fetchStations(serverUrl, page, limit, search, setStations, setTotalCount)
-    .then(() => setLoading(false)); // Set loading to false when data is fetched
+    setLoading(true);
+    (async () => {
+      await fetchStations(serverUrl, page, limit, search, setStations, setTotalCount);
+      setLoading(false);
+    })();
   }, [page, limit, search, serverUrl]);
+  
+  
 
   const handlePageChange = (
-    event: React.MouseEvent<HTMLButtonElement> | null, newPage: number
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number
   ) => {
     setPage(newPage);
   };
@@ -62,7 +67,7 @@ export const StationList: React.FC = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setLimit(parseInt(event.target.value, 10));
-    setPage(0);
+    setPage(1);
   };
 
   return (
@@ -112,8 +117,8 @@ export const StationList: React.FC = () => {
       )}
       <TablePagination
         count={totalCount}
-        page={page}
-        onPageChange={handlePageChange}
+        page={page - 1}
+        onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}
         rowsPerPage={limit}
         onRowsPerPageChange={handleChangeRowsPerPage}
         />
