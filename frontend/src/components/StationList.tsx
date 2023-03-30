@@ -9,7 +9,6 @@ import {
     Paper,
     TablePagination,
     TextField,
-    TableSortLabel,
     CircularProgress
   } from '@mui/material';
 
@@ -45,6 +44,7 @@ export const StationList: React.FC = () => {
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
+  
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
 
   useEffect(() => {
