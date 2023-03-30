@@ -26,7 +26,14 @@
 .fixedWidthCol2 {
   width: 40rem;
 }
-
+.station-list-item .MuiTableCell-root {
+  cursor: pointer;
+  transition: background-color 0.5s, color 0.3s;
+}
+.station-list-item:hover .MuiTableCell-root {
+  background-color: rgba(230, 230, 230, 1); /* Light grey background */
+  color: rgba(70, 130, 180, 1); /* Highlighted text color */
+}
 .spinner {
   position: fixed;
   top: 50%;

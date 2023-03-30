@@ -109,11 +109,13 @@ export const StationList: React.FC = () => {
                         </TableHead>
                         <TableBody>
                             {stations.map((station, index) => (
-                            <TableRow 
+                            <TableRow className='station-list-item'
                                 key={index}
                                 onClick={() => setSelectedStation(station._id)}>
-                                <TableCell className='fixedWidthCol1'>{station._id}</TableCell>
-                                <TableCell className='fixedWidthCol2'>{station.name}</TableCell>
+                                <TableCell 
+                                    className='fixedWidthCol1'>{station._id}</TableCell>
+                                <TableCell 
+                                    className='fixedWidthCol2'>{station.name}</TableCell>
                             </TableRow>
                             ))}
                         </TableBody>
