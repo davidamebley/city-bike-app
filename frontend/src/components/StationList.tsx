@@ -44,7 +44,7 @@ export const StationList: React.FC = () => {
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
-  
+  const [selectedStation, setSelectedStation] = useState<string | null>(null);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
 
   useEffect(() => {
@@ -71,57 +71,68 @@ export const StationList: React.FC = () => {
   };
 
   return (
-    <div className='container__station-list'>
-      <h2 className='header__stations'>Bicycle Stations</h2>
-      <div className='station-search-field'>
-      <TextField
-        label="Search"
-        placeholder="Search station"
-        fullWidth
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      </div>
-      {loading ? (
-        <div className="spinner" >
-          <CircularProgress />
-        </div>
-
+    <>
+    {selectedStation ? (
+        <SingleStationView
+          stationId={selectedStation}
+          onBack={() => setSelectedStation(null)}
+        />
       ) : (
-        <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol1'>
-                  Station ID
-              </TableCell>
-              <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol2'>
-                  Station Name
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {stations.map((station, index) => (
-              <TableRow key={index}>
-                <TableCell className='fixedWidthCol1'>{station._id}</TableCell>
-                <TableCell className='fixedWidthCol2'>{station.name}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-          <TableBody>
-            <TableRow>
-                <TablePagination
-                    count={totalCount}
-                    page={page - 1}
-                    onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}
-                    rowsPerPage={limit}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
-      )}
-    </div>
+        loading ? (
+            <div className="spinner" >
+              <CircularProgress />
+            </div>
+    
+          ) : (
+            <div className='container__station-list'>
+                <h2 className='header__stations'>Bicycle Stations</h2>
+                <div className='station-search-field'>
+                    <TextField
+                        label="Search"
+                        placeholder="Search station"
+                        fullWidth
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                </div>
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol1'>
+                                    Station ID
+                                </TableCell>
+                                <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol2'>
+                                    Station Name
+                                </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {stations.map((station, index) => (
+                            <TableRow 
+                                key={index}
+                                onClick={() => setSelectedStation(station._id)}>
+                                <TableCell className='fixedWidthCol1'>{station._id}</TableCell>
+                                <TableCell className='fixedWidthCol2'>{station.name}</TableCell>
+                            </TableRow>
+                            ))}
+                        </TableBody>
+                        <TableBody>
+                            <TableRow>
+                                <TablePagination
+                                    count={totalCount}
+                                    page={page - 1}
+                                    onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}
+                                    rowsPerPage={limit}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                />
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+            </TableContainer>
+      </div>
+          ))}
+    
+    </>
   );
 };

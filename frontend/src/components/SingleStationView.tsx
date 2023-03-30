@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CircularProgress } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 
 interface Station {
     _id: string
@@ -13,6 +13,7 @@ interface Station {
 
 interface SingleStationViewProps {
   stationId: string;
+  onBack: ()=>void;
 }
 
 const fetchStation = async (
@@ -30,7 +31,8 @@ const fetchStation = async (
     setJourneysEnding(data.journeysEnding);
 };
 
-export const SingleStationView: React.FC<SingleStationViewProps> = ({ stationId}) => {
+export const SingleStationView: React.FC<SingleStationViewProps> = (
+    { stationId, onBack}) => {
   const [station, setStation] = useState<Station | null>(null);
   const [loading, setLoading] = useState(true);
   const [journeysStarting, setJourneysStarting] = useState(0);
@@ -54,6 +56,7 @@ export const SingleStationView: React.FC<SingleStationViewProps> = ({ stationId}
       ) : (
         station && (
             <div>
+                <Button onClick={onBack}>Back to Stations List</Button>
                 <h2>Bicycle Station</h2>
                 <h3>{station.name}</h3>
                 <p>Address: {station.address}</p>
