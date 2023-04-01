@@ -26,6 +26,12 @@
 .fixedWidthCol2 {
   width: 8rem;
 }
+.journey-list-item {
+  transition: background-color 0.3s;
+}
+.journey-list-item:hover {
+  background-color: rgba(230, 230, 230, 1); /* Light grey background */
+}
 
 .spinner {
   position: fixed;
