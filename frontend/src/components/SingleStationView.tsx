@@ -102,12 +102,12 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
       ) : (
         station && (
             <div className='container__single-station'>
+                <h2 className='page-title'>Bicycle Station</h2>
                 <div className="container__station-details">
                     <div className="header__station">
                         <Button className='button__back' 
-                            onClick={onBack}> &larr; Back to Stations List
+                            onClick={onBack}> &larr; Back to Stations
                         </Button>
-                        <h2>Bicycle Station</h2>
                     </div>
                     <h3>{station.name}</h3>
                     <dl>
