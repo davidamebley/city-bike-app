@@ -105,14 +105,19 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
                 <div className="container__station-details">
                     <div className="header__station">
                         <Button className='button__back' 
-                            onClick={onBack}>Back to Stations List
+                            onClick={onBack}> &larr; Back to Stations List
                         </Button>
                         <h2>Bicycle Station</h2>
                     </div>
                     <h3>{station.name}</h3>
-                    <p>Address: {station.address}</p>
-                    <p>Number of journeys started at this station: {journeysStarting}</p>
-                    <p>Number of journeys ended at this station: {journeysEnding}</p>
+                    <dl>
+                        <dt>Address:</dt>
+                        <dd>{station.address}</dd>
+                        <dt>Number of journeys started at this station:</dt>
+                        <dd>{journeysStarting}</dd>
+                        <dt>Number of journeys ended at this station:</dt>
+                        <dd>{journeysEnding}</dd>
+                    </dl>
                 </div>
                 <div className="vertical-separator"></div>
                 <div className="container__map">
