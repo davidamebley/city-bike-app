@@ -18,7 +18,7 @@ const StationMap: React.FC<StationMapProps> = ({ location }) => {
   const defaultZoom = 13;
 
   return (
-    <MapContainer center={defaultCenter} zoom={defaultZoom} style={{ height: '100%', width: '100%' }} className="station-map">
+    <MapContainer center={{lat:location.latitude, lng:location.longitude}} zoom={defaultZoom} style={{ height: '100%', width: '100%' }} className="station-map">
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -29,7 +29,7 @@ const StationMap: React.FC<StationMapProps> = ({ location }) => {
         pathOptions={{ color: 'blue', fillColor: 'blue' }}
         radius={10}
       >
-        <Popup>Location</Popup>
+        <Popup>Location: {location.latitude}, {location.longitude}</Popup>
       </CircleMarker>
     </MapContainer>
   );

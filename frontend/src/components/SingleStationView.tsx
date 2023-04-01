@@ -14,81 +14,54 @@ interface Station {
     journeysEnding: number;
 }
 
-interface StationL {
-    _id: string
-    name: string;
-    address: string;
-    x: number;
-    y: number;
-}
-
 interface Location {
     latitude: number;
-    longitude: number;
-    
+    longitude: number;   
 }
+const defaultCenter:Location = {
+  latitude: 60.1699,
+  longitude: 24.9384,
+};
 
 interface SingleStationViewProps {
   stationId: string;
   onBack: ()=>void;
 }
 
-const defaultCenter = {
-    latitude: 60.1699,
-    longitude: 24.9384,
-  };
-
 const fetchStation = async (
     serverUrl: string,
     id: string,
     setStation: React.Dispatch<React.SetStateAction<Station | null>>,
+    setLocation: React.Dispatch<React.SetStateAction<Location>>,
     setJourneysStarting: React.Dispatch<React.SetStateAction<number>>,
     setJourneysEnding: React.Dispatch<React.SetStateAction<number>>,
   ) => {
     const requestUrl = `${serverUrl}/api/stations/${id}`;
     const response = await fetch(requestUrl);
     const data = await response.json();
-    setStation(data.station);
+    const station:Station = data.station;
+    const location:Location = {latitude:station.y, longitude:station.x} //y:lat; x:lng
+    setStation(station);
+    setLocation(location)
     setJourneysStarting(data.journeysStarting);
     setJourneysEnding(data.journeysEnding);
 };
 
-const fetchLocations = async (
-    serverUrl: string,
-    setLocations: React.Dispatch<React.SetStateAction<Location[]>>,
-  ) => {
-    const requestUrl = `${serverUrl}/api/stations`;
-    const response = await fetch(requestUrl);
-    const data = await response.json();
-    const stations:StationL[] = data.stations;
-    const locations: Location[] = stations.map((station) => ({
-        latitude: station.x,
-        longitude: station.y,
-      }));
-    setLocations(locations);
-    console.log(`Locations: ${JSON.stringify(locations)}`)    
-};
 
 export const SingleStationView: React.FC<SingleStationViewProps> = (
     { stationId, onBack}) => {
   const [station, setStation] = useState<Station | null>(null);
+  const [location, setLocation] = useState<Location>(defaultCenter);
   const [loading, setLoading] = useState(true);
   const [journeysStarting, setJourneysStarting] = useState(0);
   const [journeysEnding, setJourneysEnding] = useState(0);
-  const [locations, setLocations] = useState<Location[]>([]);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
-
-  useEffect(() => {
-    (async () => {
-        fetchLocations(serverUrl, setLocations);
-    })();
-  }, []);
   
 
   useEffect(() => {
     setLoading(true);
     (async () => {
-      await fetchStation(serverUrl, stationId, setStation, setJourneysStarting, setJourneysEnding);
+      await fetchStation(serverUrl, stationId, setStation, setLocation, setJourneysStarting, setJourneysEnding);
       setLoading(false);
     })();
   }, [stationId]);
@@ -121,7 +94,7 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
                 </div>
                 <div className="vertical-separator"></div>
                 <div className="container__map">
-                    <StationMap location={defaultCenter} />
+                    <StationMap location={location} />
                 </div>
             </div>
         )
