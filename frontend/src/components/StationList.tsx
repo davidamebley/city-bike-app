@@ -93,6 +93,7 @@ export const StationList: React.FC = () => {
                         fullWidth
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
+
                     />
                 </div>
                 <TableContainer component={Paper}>

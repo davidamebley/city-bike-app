@@ -9,14 +9,12 @@
 }
 
 .header__stations {
-  font-size: 2rem;
   margin-bottom: 1rem;
   width: 100%;
 }
 
 .station-search-field {
   width: 100%;
-  max-width: 600px;
   margin-bottom: 1rem;
 }
 .fixedWidthCol1 {

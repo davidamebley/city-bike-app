@@ -83,7 +83,7 @@ export const JourneyList: React.FC = () => {
 
   return (
     <div className='container__journey-list'>
-      <h2 className='header__journeys'>Journeys</h2>
+      <h3 className='header__journeys'>Journeys</h3>
       <div className='journey-search-field'>
       <TextField
         label="Search"

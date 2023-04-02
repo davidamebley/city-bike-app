@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button, CircularProgress } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 import '../styles/singleStationView.css';
 import StationMap from './StationMap';
-
+// 
 interface Station {
     _id: string
     name: string;
@@ -56,6 +57,10 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
   const [journeysStarting, setJourneysStarting] = useState(0);
   const [journeysEnding, setJourneysEnding] = useState(0);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
+
+  // const onBack = () => {
+  //   navigate(-1);
+  // };
   
 
   useEffect(() => {
@@ -75,7 +80,7 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
       ) : (
         station && (
             <div className='container__single-station'>
-                <h2 className='page-title'>Bicycle Station</h2>
+                <h3 className='page-title'>Bicycle Station</h3>
                 <div className="container__station-details">
                     <div className="header__station">
                         <Button className='button__back' 

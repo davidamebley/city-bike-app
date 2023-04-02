@@ -9,14 +9,13 @@
 }
 
 .header__journeys {
-  font-size: 2rem;
   margin-bottom: 1rem;
   width: 100%;
 }
 
 .journey-search-field {
   width: 100%;
-  max-width: 600px;
+  /* max-width: 600px; */
   margin-bottom: 1rem;
 }
 .fixedWidthCol1 {
