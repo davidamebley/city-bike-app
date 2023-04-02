@@ -85,7 +85,6 @@ export const StationList: React.FC = () => {
     
           ) : (
             <div className='container__station-list'>
-                <h3 className='header__stations'>Bicycle Stations</h3>
                 <div className='station-search-field'>
                     <TextField
                         label="Search"
