@@ -8,14 +8,9 @@
   padding-top: 0;
 }
 
-.header__stations {
-  margin-bottom: 1rem;
-  width: 100%;
-}
-
 .station-search-field {
   width: 100%;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 .fixedWidthCol1 {
   width: 30rem;
@@ -46,6 +41,6 @@
 @media screen and (min-width: 768px) {
   .station-search-field {
     width: 20rem;
-    margin-bottom: 1rem;
+    margin: 1rem 0;
   }
 }

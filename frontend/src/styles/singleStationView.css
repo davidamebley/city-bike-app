@@ -6,11 +6,6 @@
   padding: 1rem;
   height: 90vh;
 }
-.page-title {
-  text-align: center;
-  width: 100%;
-  margin-bottom: 1rem;
-}
 
 .container__station-details {
   display: flex;
@@ -48,7 +43,11 @@
   font-size: 1.25rem;
   font-weight: 500;
 }
-
+.container__station-details .page-title {
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
+}
 .container__station-details p {
   margin-top: 0;
   margin-bottom: 0.75rem;
@@ -79,7 +78,7 @@
 .vertical-separator {
   width: 1px;
   background-color: rgba(128, 128, 128, 0.3);
-  height: 90%;
+  height: 100%;
   margin: 0 1rem;
 }
 
@@ -87,7 +86,7 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  height: 90%;
+  height: 100%;
   width: 75%;
 }
 
@@ -96,11 +95,13 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem;
+    padding-bottom: 1rem;
   }
 
   .container__station-details {
     width: 100%;
-    height: 35%;
+    height: 40%;
+    margin-bottom: 2rem;
   }
 
   .header__station {
@@ -108,7 +109,7 @@
   }
 
   .button__back {
-    margin-bottom: 1rem;
+    margin: 0;
   }
 
   .vertical-separator {
@@ -123,7 +124,7 @@
 
   .container__map .leaflet-container {
     /* height: 60vh !important; */
-    height: 60%;
+    height: 50%;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
   }

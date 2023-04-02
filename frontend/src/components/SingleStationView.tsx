@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Button, CircularProgress } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
 import '../styles/singleStationView.css';
 import StationMap from './StationMap';
@@ -58,11 +57,6 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
   const [journeysEnding, setJourneysEnding] = useState(0);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
 
-  // const onBack = () => {
-  //   navigate(-1);
-  // };
-  
-
   useEffect(() => {
     setLoading(true);
     (async () => {
@@ -80,13 +74,14 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
       ) : (
         station && (
             <div className='container__single-station'>
-                <h3 className='page-title'>Bicycle Station</h3>
+                {/* <h3 className='page-title'>Bicycle Station</h3> */}
                 <div className="container__station-details">
                     <div className="header__station">
                         <Button className='button__back' 
                             onClick={onBack}> &larr; Back to Stations
                         </Button>
                     </div>
+                    <h3 className='page-title'>Station Details</h3>
                     <h3>{station.name}</h3>
                     <dl>
                         <dt>Address:</dt>

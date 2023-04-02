@@ -8,15 +8,9 @@
   padding-top: 0;
 }
 
-.header__journeys {
-  margin-bottom: 1rem;
-  width: 100%;
-}
-
 .journey-search-field {
   width: 100%;
-  /* max-width: 600px; */
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 .fixedWidthCol1 {
   width: 15rem;
