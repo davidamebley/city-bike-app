@@ -93,6 +93,14 @@ export const getStation = async (req: any, res: any) => {
     { $limit: 5 },
   ]);
 
+  // Calculate top 5 popular departure stations
+  const popularDepartureStations = await Journey.aggregate([
+    { $match: { return_station_id: stationId } },
+    { $group: { _id: '$departure_station_id', count: { $sum: 1 } } },
+    { $sort: { count: -1 } },
+    { $limit: 5 },
+  ]);
+
   res.status(200).json({
       station,
       journeysStarting,
@@ -100,5 +108,6 @@ export const getStation = async (req: any, res: any) => {
       averageStartingDistance: averageStartingDistance[0]?.avgDistance || 0,
       averageEndingDistance: averageEndingDistance[0]?.avgDistance || 0,
       popularReturnStations,
+      popularDepartureStations,
   });
 };
