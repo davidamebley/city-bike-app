@@ -85,7 +85,13 @@ export const getStation = async (req: any, res: any) => {
       { $group: { _id: null, avgDistance: { $avg: '$covered_distance' } } },
   ]);
 
-  
+  // Calculate top 5 popular return stations
+  const popularReturnStations = await Journey.aggregate([
+    { $match: { departure_station_id: stationId } },
+    { $group: { _id: '$return_station_id', count: { $sum: 1 } } },
+    { $sort: { count: -1 } },
+    { $limit: 5 },
+  ]);
 
   res.status(200).json({
       station,
@@ -93,5 +99,6 @@ export const getStation = async (req: any, res: any) => {
       journeysEnding,
       averageStartingDistance: averageStartingDistance[0]?.avgDistance || 0,
       averageEndingDistance: averageEndingDistance[0]?.avgDistance || 0,
+      popularReturnStations,
   });
 };
