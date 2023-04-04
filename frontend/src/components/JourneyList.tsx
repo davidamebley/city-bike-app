@@ -143,10 +143,18 @@ export const JourneyList: React.FC = () => {
           <TableBody>
             {journeys.map((journey, index) => (
               <TableRow className='journey-list-item' key={index}>
-                <TableCell className='fixedWidthCol1'>{journey.departure_station_name}</TableCell>
-                <TableCell className='fixedWidthCol1'>{journey.return_station_name}</TableCell>
-                <TableCell className='fixedWidthCol2'>{(journey.covered_distance / 1000).toFixed(3)}</TableCell>
-                <TableCell className='fixedWidthCol2'>{(journey.duration / 60).toFixed(3)}</TableCell>
+                <TableCell className='fixedWidthCol1'>{
+                  journey.departure_station_name}
+                </TableCell>
+                <TableCell className='fixedWidthCol1'>{
+                  journey.return_station_name}
+                </TableCell>
+                <TableCell className='fixedWidthCol2'>{
+                  (journey.covered_distance / 1000).toFixed(3)} km
+                </TableCell>
+                <TableCell className='fixedWidthCol2'>{
+                  (journey.duration / 60).toFixed(2)} mins
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

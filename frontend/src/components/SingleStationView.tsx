@@ -35,6 +35,8 @@ const fetchStation = async (
     setLocation: React.Dispatch<React.SetStateAction<Location>>,
     setJourneysStarting: React.Dispatch<React.SetStateAction<number>>,
     setJourneysEnding: React.Dispatch<React.SetStateAction<number>>,
+    setAvgStartingDistance: React.Dispatch<React.SetStateAction<number>>,
+    setAvgEndingDistance: React.Dispatch<React.SetStateAction<number>>,
   ) => {
     const requestUrl = `${serverUrl}/api/stations/${id}`;
     const response = await fetch(requestUrl);
@@ -45,6 +47,8 @@ const fetchStation = async (
     setLocation(location)
     setJourneysStarting(data.journeysStarting);
     setJourneysEnding(data.journeysEnding);
+    setAvgStartingDistance(data.averageStartingDistance);
+    setAvgEndingDistance(data.averageEndingDistance);
 };
 
 
@@ -55,12 +59,22 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
   const [loading, setLoading] = useState(true);
   const [journeysStarting, setJourneysStarting] = useState(0);
   const [journeysEnding, setJourneysEnding] = useState(0);
+  const [avgStartingDistance, setAvgStartingDistance] = useState(0);
+  const [avgEndingDistance, setAvgEndingDistance] = useState(0);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
 
   useEffect(() => {
     setLoading(true);
     (async () => {
-      await fetchStation(serverUrl, stationId, setStation, setLocation, setJourneysStarting, setJourneysEnding);
+      await fetchStation(
+        serverUrl,
+        stationId, 
+        setStation, 
+        setLocation, 
+        setJourneysStarting, 
+        setJourneysEnding, 
+        setAvgStartingDistance, 
+        setAvgEndingDistance);
       setLoading(false);
     })();
   }, [stationId]);
@@ -90,6 +104,10 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
                         <dd>{journeysStarting}</dd>
                         <dt>Number of journeys ended at this station:</dt>
                         <dd>{journeysEnding}</dd>
+                        <dt>Average distance of a journey started from this station:</dt>
+                        <dd>{(avgStartingDistance/1000).toFixed(3)} km</dd>
+                        <dt>Average distance of a journey ended at this station:</dt>
+                        <dd>{(avgEndingDistance/1000).toFixed(3)} km</dd>
                     </dl>
                 </div>
                 <div className="vertical-separator"></div>
