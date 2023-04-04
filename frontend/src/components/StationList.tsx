@@ -108,7 +108,7 @@ export const StationList: React.FC = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {stations.map((station, index) => (
+                            {stations.map((station, index:number) => (
                             <TableRow className='station-list-item'
                                 key={index}
                                 onClick={() => setSelectedStation(station._id)}>
