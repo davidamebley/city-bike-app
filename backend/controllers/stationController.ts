@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import NodeCache from 'node-cache';
 
 import Journey from "../models/journey";
@@ -65,16 +66,32 @@ export const getStations = async (req: any, res: any) => {
 }
 
 // @desc Get Station
-// @route GET /api/stations
+// @route GET /api/stations/:id
 // @access Public
 export const getStation = async (req: any, res: any) => {
-    const station = await Station.findById(req.params.id);
-    const journeysStarting = await Journey.countDocuments({ departure_station_id: station?.id });
-    const journeysEnding = await Journey.countDocuments({ return_station_id: station?.id });
+  const stationId = req.params.id;
+  const station = await Station.findById(stationId);
+  const journeysStarting = await Journey.countDocuments({ departure_station_id: stationId });
+  const journeysEnding = await Journey.countDocuments({ return_station_id: stationId });
 
-    res.status(200).json({
-    station,
-    journeysStarting,
-    journeysEnding,
+  // Calculate average distances
+  const averageStartingDistance = await Journey.aggregate([
+      { $match: { departure_station_id: stationId } },
+      { $group: { _id: null, avgDistance: { $avg: '$covered_distance' } } },
+  ]);
+
+  const averageEndingDistance = await Journey.aggregate([
+      { $match: { return_station_id: stationId } },
+      { $group: { _id: null, avgDistance: { $avg: '$covered_distance' } } },
+  ]);
+
+  
+
+  res.status(200).json({
+      station,
+      journeysStarting,
+      journeysEnding,
+      averageStartingDistance: averageStartingDistance[0]?.avgDistance || 0,
+      averageEndingDistance: averageEndingDistance[0]?.avgDistance || 0,
   });
-}
+};
