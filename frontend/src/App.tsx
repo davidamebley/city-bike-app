@@ -17,7 +17,7 @@ function App() {
       <AppBar position="static" color="default" sx={{ backgroundColor: 'white' }}>
       <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Helsinki city bike app
+            Helsinki City Bikes
           </Typography>
           <Tabs value={activeTab} onChange={handleChange} textColor="primary">
             <Tab label="Journeys" />

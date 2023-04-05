@@ -1,6 +1,8 @@
 import React from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 
+import '../styles/stationMap.css';
+
 interface Location {
   latitude: number;
   longitude: number;
@@ -8,9 +10,11 @@ interface Location {
 
 interface StationMapProps {
   location: Location;
+  name: string;
+  address: string;
 }
 
-const StationMap: React.FC<StationMapProps> = ({ location }) => {
+const StationMap: React.FC<StationMapProps> = ({ location, name, address }) => {
   const defaultCenter = {
     lat: 60.1699,
     lng: 24.9384,
@@ -24,12 +28,17 @@ const StationMap: React.FC<StationMapProps> = ({ location }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <CircleMarker
+        className='circle-marker'
         key={location.latitude}
         center={[location.latitude, location.longitude]}
-        pathOptions={{ color: 'blue', fillColor: 'blue' }}
         radius={10}
+        weight={5}
       >
-        <Popup>Location: {location.latitude}, {location.longitude}</Popup>
+        <Popup>
+          <b>{name}</b>
+          <br/>
+          {address}
+        </Popup>
       </CircleMarker>
     </MapContainer>
   );

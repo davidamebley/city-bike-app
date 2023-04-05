@@ -37,18 +37,46 @@ const fetchStation = async (
     setJourneysEnding: React.Dispatch<React.SetStateAction<number>>,
     setAvgStartingDistance: React.Dispatch<React.SetStateAction<number>>,
     setAvgEndingDistance: React.Dispatch<React.SetStateAction<number>>,
+    setPopularReturnStations: React.Dispatch<React.SetStateAction<any[]>>,
+    setPopularDepartureStations: React.Dispatch<React.SetStateAction<any[]>>,
   ) => {
     const requestUrl = `${serverUrl}/api/stations/${id}`;
     const response = await fetch(requestUrl);
     const data = await response.json();
     const station:Station = data.station;
     const location:Location = {latitude:station.y, longitude:station.x} //y:lat; x:lng
+
+    const fetchStationName = async (stationId: string) => {
+      const response = await fetch(`${serverUrl}/api/stations/${stationId}`);
+      const data = await response.json();
+      return data.station.name;
+    };
+
+    const popularReturnStationsPromise = data.popularReturnStations.map(
+      async (returnStation: { _id: string; count: number }) => {
+        const name = await fetchStationName(returnStation._id);
+        return { ...returnStation, name };
+      }
+    );
+
+    const popularDepartureStationsPromise = data.popularDepartureStations.map(
+      async (departureStation: { _id: string; count: number }) => {
+        const name = await fetchStationName(departureStation._id);
+        return { ...departureStation, name };
+      }
+    );
+
+    const popularReturnStations = await Promise.all(popularReturnStationsPromise);
+    const popularDepartureStations = await Promise.all(popularDepartureStationsPromise);
+
     setStation(station);
-    setLocation(location)
+    setLocation(location);
     setJourneysStarting(data.journeysStarting);
     setJourneysEnding(data.journeysEnding);
     setAvgStartingDistance(data.averageStartingDistance);
     setAvgEndingDistance(data.averageEndingDistance);
+    setPopularReturnStations(popularReturnStations);
+    setPopularDepartureStations(popularDepartureStations);
 };
 
 
@@ -61,6 +89,8 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
   const [journeysEnding, setJourneysEnding] = useState(0);
   const [avgStartingDistance, setAvgStartingDistance] = useState(0);
   const [avgEndingDistance, setAvgEndingDistance] = useState(0);
+  const [popularReturnStations, setPopularReturnStations] = useState<any>([]);
+  const [popularDepartureStations, setPopularDepartureStations] = useState<any>([]);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
 
   useEffect(() => {
@@ -74,7 +104,9 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
         setJourneysStarting, 
         setJourneysEnding, 
         setAvgStartingDistance, 
-        setAvgEndingDistance);
+        setAvgEndingDistance,
+        setPopularReturnStations,
+        setPopularDepartureStations);
       setLoading(false);
     })();
   }, [stationId]);
@@ -108,11 +140,27 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
                         <dd>{(avgStartingDistance/1000).toFixed(3)} km</dd>
                         <dt>Average distance of a journey ended at this station:</dt>
                         <dd>{(avgEndingDistance/1000).toFixed(3)} km</dd>
+                        <dt>Top 5 most popular return stations for journeys starting at this station:</dt>
+                        {
+                          popularReturnStations.map((returnStation:any, index:number) =>(
+                            <React.Fragment key={index}>
+                              <dd>{`${returnStation.name} (${returnStation.count} times)`}</dd>
+                            </React.Fragment>
+                          ))
+                        }
+                        <dt>Top 5 most popular departure stations for journeys ending at this station:</dt>
+                        {
+                          popularDepartureStations.map((departureStation:any, index:number) =>(
+                            <React.Fragment key={index}>
+                              <dd>{`${departureStation.name} (${departureStation.count} times)`}</dd>
+                            </React.Fragment>
+                          ))
+                        }
                     </dl>
                 </div>
                 <div className="vertical-separator"></div>
                 <div className="container__map">
-                    <StationMap location={location} />
+                    <StationMap location={location} name={station.name} address={station.address} />
                 </div>
             </div>
         )
