@@ -120,52 +120,58 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
       ) : (
         station && (
             <div className='container__single-station'>
-                {/* <h3 className='page-title'>Bicycle Station</h3> */}
-                <div className="container__station-details">
-                    <div className="header__station">
-                        <Button className='button__back' 
-                            onClick={onBack}> &larr; Back to Stations
-                        </Button>
-                    </div>
-                    <h3 className='page-title'>Station Details</h3>
-                    <h3>{station.name}</h3>
-                    <dl>
-                        <dt>Address:</dt>
-                        <dd>{station.address}</dd>
-                        <dt>Number of journeys started at this station:</dt>
-                        <dd>{journeysStarting}</dd>
-                        <dt>Number of journeys ended at this station:</dt>
-                        <dd>{journeysEnding}</dd>
-                        <dt>Average distance of a journey started from this station:</dt>
-                        <dd>{(avgStartingDistance/1000).toFixed(3)} km</dd>
-                        <dt>Average distance of a journey ended at this station:</dt>
-                        <dd>{(avgEndingDistance/1000).toFixed(3)} km</dd>
-                        <dt>Top 5 most popular return stations for journeys starting at this station:</dt>
-                        {
-                          popularReturnStations.map((returnStation:any, index:number) =>(
-                            <React.Fragment key={index}>
-                              <dd>{`${returnStation.name} (${returnStation.count} times)`}</dd>
-                            </React.Fragment>
-                          ))
-                        }
-                        <dt>Top 5 most popular departure stations for journeys ending at this station:</dt>
-                        {
-                          popularDepartureStations.map((departureStation:any, index:number) =>(
-                            <React.Fragment key={index}>
-                              <dd>{`${departureStation.name} (${departureStation.count} times)`}</dd>
-                            </React.Fragment>
-                          ))
-                        }
-                    </dl>
+              <div className="container__station-details">
+                <div className="header__station">
+                  <Button className='button__back' 
+                      onClick={onBack}> &larr; Back to Stations
+                  </Button>
+                  <h3 className='page-title'>Station Details</h3>
                 </div>
-                <div className="vertical-separator"></div>
-                <div className="container__map">
-                    <StationMap location={location} name={station.name} address={station.address} />
+                <h3>{station.name}</h3>
+                <div className="station-detail">
+                  <h4 className="station-detail-title">Address</h4>
+                  <p className="station-detail-value">{station.address}</p>
                 </div>
+                <div className="station-detail">
+                  <h4 className="station-detail-title">Number of journeys started at this station</h4>
+                  <p className="station-detail-value">{journeysStarting}</p>
+                </div>
+                <div className="station-detail">
+                  <h4 className="station-detail-title">Number of journeys ended at this station</h4>
+                  <p className="station-detail-value">{journeysEnding}</p>
+                </div>
+                <div className="station-detail">
+                  <h4 className="station-detail-title">Average distance of a journey started from this station</h4>
+                  <p className="station-detail-value">{(avgStartingDistance / 1000).toFixed(3)} km</p>
+                </div>
+                <div className="station-detail">
+                  <h4 className="station-detail-title">Average distance of a journey ended at this station</h4>
+                  <p className="station-detail-value">{(avgEndingDistance / 1000).toFixed(3)} km</p>
+                </div>
+                <div className="station-detail">
+                  <h4 className="station-detail-title">Top 5 most popular return stations for journeys starting at this station</h4>
+                  <ul>
+                    {popularReturnStations.map((returnStation: any, index: number) => (
+                      <li key={index}>{`${returnStation.name} (${returnStation.count} times)`}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="station-detail">
+                  <h4 className="station-detail-title">Top 5 most popular departure stations for journeys ending at this station</h4>
+                  <ul>
+                    {popularDepartureStations.map((departureStation: any, index: number) => (
+                      <li key={index}>{`${departureStation.name} (${departureStation.count} times)`}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div className="container__map">
+                <StationMap location={location} name={station.name} address={station.address} />
+              </div>
             </div>
+          )
         )
-      )
-    }
+        }
     </div>
   );
 };
