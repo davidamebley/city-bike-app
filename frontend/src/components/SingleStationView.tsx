@@ -133,12 +133,11 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
                   <Button className='button__back' 
                       onClick={onBack}> &larr; Back to Stations
                   </Button>
-                  <h3 className='page-title'>Station Details</h3>
+                  <h3 className='station-name'>{station.name}</h3>
                 </div>
-                <h3>{station.name}</h3>
-                <Button className="button__show-map" onClick={toggleMapModal}>
+                <p className="show-map" onClick={toggleMapModal}>
                   Show Map
-                </Button>
+                </p>
                 <div className="station-detail">
                   <h4 className="station-detail-title">Address</h4>
                   <p className="station-detail-value">{station.address}</p>
@@ -161,19 +160,19 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
                 </div>
                 <div className="station-detail">
                   <h4 className="station-detail-title">Top 5 most popular return stations for journeys starting at this station</h4>
-                  <ul>
+                  <ol>
                     {popularReturnStations.map((returnStation: any, index: number) => (
                       <li key={index}>{`${returnStation.name} (${returnStation.count} times)`}</li>
                     ))}
-                  </ul>
+                  </ol>
                 </div>
                 <div className="station-detail">
                   <h4 className="station-detail-title">Top 5 most popular departure stations for journeys ending at this station</h4>
-                  <ul>
+                  <ol>
                     {popularDepartureStations.map((departureStation: any, index: number) => (
                       <li key={index}>{`${departureStation.name} (${departureStation.count} times)`}</li>
                     ))}
-                  </ul>
+                  </ol>
                 </div>
               </div>
               <div className="container__map">

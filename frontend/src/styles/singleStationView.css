@@ -11,13 +11,10 @@
 .container__station-details {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 35%;
   height: 100%;
-  padding: 1rem;
-  background-color: #ffffff;
-  border: 1px solid rgba(128, 128, 128, 0.3);
+  padding: 1rem 0 1rem 0;
   border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   overflow-y: auto;
   position: relative;
 }
@@ -31,7 +28,7 @@
   margin-bottom: 1rem;
 }
 
-.page-title {
+.station-name {
   font-size: 1.75rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -40,30 +37,42 @@
 .button__back {
   font-size: 0.9rem;
   font-weight: 500;
+  margin: 0;
+  align-self: flex-start;
 }
-.button__show-map {
+.show-map {
   display: none;
 }
 
 .station-detail {
-  margin-bottom: 1rem;
+  padding: 1rem;
+  margin-bottom: 0.9rem;
+  background-color: #ffffff;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 5px;
+  box-shadow: 0 1px 5rem rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 .station-detail-title {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 600;
+  color: rgba(0, 0, 0, 0.8);
   margin-bottom: 0.5rem;
 }
 
 .station-detail-value {
   font-size: 1rem;
   font-weight: 400;
+  color: rgba(0, 0, 0, 0.7);
+}
+ol {
+  line-height: 2rem;
 }
 
 .container__map {
   flex: 1;
   height: 100%;
-  width: 65%;
+  width: 60%;
   margin-left: 1rem;
   border-radius: 4px;
   overflow: hidden;
@@ -75,35 +84,36 @@
     flex-direction: column;
     align-items: center;
     justify-content: stretch;
-    /* padding: 1rem 2rem 1rem 1rem; */
   }
-
   .container__station-details {
-    width: 90%;
+    width: 95%;
     height: auto;
     margin: 0;
     margin-bottom: 2rem;
     overflow-y: visible;
   }
-
-  .header__station {
-    flex-direction: column;
+  .show-map {
+    display: block;
+    cursor: pointer;
+    color: #1976d2;
+    width: fit-content;
+    align-self: center;
   }
-
-  .button__back {
-    margin: 0;
+  .show-map:hover {
+    text-decoration: underline;
   }
+  /* .station-detail {
+    margin-bottom: 0.9rem;
+    background-color: #ffffff;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 5px;
+    box-shadow: 0 1px 5rem rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  } */
 
   .container__map {
-    /* width: 100%;
-    height: 30%;
-    margin-right: 1rem; */
     display: none;
   }
-
   .container__map .leaflet-container {
-    height: 100%;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    display: none;
   }
 }
