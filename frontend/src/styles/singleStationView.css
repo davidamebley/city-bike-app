@@ -31,6 +31,16 @@
 .station-name {
   font-size: 1.75rem;
   font-weight: 600;
+  margin-bottom: 0;
+}
+.MuiListItemIcon-root,
+.css-cveggr-MuiListItemIcon-root {
+  align-self: flex-end;
+  min-width: fit-content !important;
+}
+.station-address {
+  display: flex;
+  align-items: center;
   margin-bottom: 1rem;
 }
 
@@ -50,7 +60,7 @@
   background-color: #ffffff;
   border: 1px solid rgba(128, 128, 128, 0.3);
   border-radius: 5px;
-  box-shadow: 0 1px 5rem rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 1px 1rem rgba(0, 0, 0, 0.12), 0 1px 1rem rgba(0, 0, 0, 0.24);
 }
 
 .station-detail-title {
@@ -91,6 +101,10 @@ ol {
     margin: 0;
     margin-bottom: 2rem;
     overflow-y: visible;
+  }
+
+  .station-address {
+    margin-bottom: 0;
   }
   .show-map {
     display: block;

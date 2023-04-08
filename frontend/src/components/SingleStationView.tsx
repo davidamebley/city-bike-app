@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, ListItemIcon } from '@mui/material';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import '../styles/singleStationView.css';
 import StationMap from './StationMap';
@@ -134,14 +135,16 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
                       onClick={onBack}> &larr; Back to Stations
                   </Button>
                   <h3 className='station-name'>{station.name}</h3>
+                  <div className='station-address'>
+                    <ListItemIcon>
+                      <LocationOnIcon />
+                    </ListItemIcon>
+                    <p className="station-detail-value" style={{ marginBottom: 0 }}>{station.address}</p>
+                  </div>
                 </div>
                 <p className="show-map" onClick={toggleMapModal}>
                   Show Map
                 </p>
-                <div className="station-detail">
-                  <h4 className="station-detail-title">Address</h4>
-                  <p className="station-detail-value">{station.address}</p>
-                </div>
                 <div className="station-detail">
                   <h4 className="station-detail-title">Number of journeys started at this station</h4>
                   <p className="station-detail-value">{journeysStarting}</p>
