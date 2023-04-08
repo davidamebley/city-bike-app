@@ -3,6 +3,7 @@ import { Button, CircularProgress } from '@mui/material';
 
 import '../styles/singleStationView.css';
 import StationMap from './StationMap';
+import { MapModal } from './MapModal';
 // 
 interface Station {
     _id: string
@@ -91,7 +92,14 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
   const [avgEndingDistance, setAvgEndingDistance] = useState(0);
   const [popularReturnStations, setPopularReturnStations] = useState<any>([]);
   const [popularDepartureStations, setPopularDepartureStations] = useState<any>([]);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
+
+  const toggleMapModal = () => {
+    setIsMapModalOpen(!isMapModalOpen);
+  };
+  
 
   useEffect(() => {
     setLoading(true);
@@ -128,6 +136,9 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
                   <h3 className='page-title'>Station Details</h3>
                 </div>
                 <h3>{station.name}</h3>
+                <Button className="button__show-map" onClick={toggleMapModal}>
+                  Show Map
+                </Button>
                 <div className="station-detail">
                   <h4 className="station-detail-title">Address</h4>
                   <p className="station-detail-value">{station.address}</p>
@@ -168,10 +179,12 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
               <div className="container__map">
                 <StationMap location={location} name={station.name} address={station.address} />
               </div>
+              <MapModal isOpen={isMapModalOpen} onClose={toggleMapModal} station={station} location={location}/>
             </div>
           )
         )
         }
+        
     </div>
   );
 };

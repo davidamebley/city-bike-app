@@ -22,9 +22,15 @@
     stroke-width: 0.55em;
   }
   80% {
-    stroke-width: 0.5em;
+    stroke-width: 0.6em;
   }
   100% {
-    stroke-width: 0.45em;
+    stroke-width: 0.65em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .station-map {
+    z-index: 0;
   }
 }

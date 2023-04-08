@@ -1,0 +1,36 @@
+.map-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+}
+
+.map-modal__open {
+  display: flex;
+}
+
+.map-modal__content {
+  position: relative;
+  width: 80%;
+  height: 70%;
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.map-modal__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  font-size: 1.5rem;
+  font-weight: 700;
+  z-index: 99;
+  border: 0;
+  cursor: pointer;
+}
