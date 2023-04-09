@@ -139,7 +139,7 @@ export const addStation = async (req: any, res: any) => {
 
   try {
     // Find the current maximum _id value in the collection
-    const maxIdDoc = await Station.findOne({}, { sort:{ _id: -1 } });
+    const maxIdDoc = await Station.findOne({}).sort({_id: -1});
 
     // Calculate the new _id value by incrementing the max _id by 1
     const newId = maxIdDoc ? parseInt(maxIdDoc._id) + 1 : 1;
