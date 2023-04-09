@@ -140,7 +140,7 @@ export async function importStations(csvFile: string) {
     
         // Get a reference to the "journeys" collection in the "helsinki-city-bike-db" database
         const db = client.db('helsinki-city-bike-db');
-        const collection = db.collection<Journey>('stations');
+        const collection = db.collection<Station>('stations');
     
         const batchSize = 1000;
         let counter = 0;
@@ -166,7 +166,7 @@ export async function importStations(csvFile: string) {
     
         console.log(`Importing data to DB. Please Wait...`)
         // Read and process the CSV file line by line
-        let headers: string[] = []; // Initialize an empty headers array
+        let headers = ['ID', 'Name', 'Osoite', 'x', 'y']; // Initialize headers array with expected case
         for await (const line of readLine) {
             if (isFirstLine) {
                 headers = line.split(','); // Set headers to the values from the first line of the CSV file
@@ -181,11 +181,11 @@ export async function importStations(csvFile: string) {
               .end(line);
             });
 
-        //   console.log(`Row: ${JSON.stringify(row)}`)
           const x_coord = parseFloat(row['x']);
           const y_coord = parseFloat(row['y']);
-        //   console.log(`id: ${row['ID']} name: ${row['Name']} address: ${row['Osoite']} x: ${x_coord} y: ${row['y']}`)
+          // console.log(`fid: ${row['FID'].toString()}, name: ${row['Name']}, address: ${row['Osoite']}, x: ${x_coord}, y: ${row['y']}`)
 
+          console.log(`row=> ${JSON.stringify(row)}`)
             const station: Station = {
               _id: row['ID'],
               name: row['Name'],

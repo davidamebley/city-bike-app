@@ -125,3 +125,31 @@ export const getStation = async (req: any, res: any) => {
     res.status(200).json(result);
   }
 };
+
+// @desc Add a new Station
+// @route POST /api/stations
+// @access Public
+export const addStation = async (req: any, res: any) => {
+  const { name, address, x, y } = req.body;
+
+  if (!name || !address || !x || !y) {
+    res.status(400).json({ error: 'Please provide all required fields: name, address, x, and y.' });
+    return;
+  }
+
+  try {
+    // Find the current maximum _id value in the collection
+    const maxIdDoc = await Station.findOne({}, { sort:{ _id: -1 } });
+
+    // Calculate the new _id value by incrementing the max _id by 1
+    const newId = maxIdDoc ? parseInt(maxIdDoc._id) + 1 : 1;
+
+    // Create a new Station document with the new _id value
+    const newStation = new Station({ _id: newId.toString(), name, address, x, y });
+
+    await newStation.save();
+    res.status(201).json(newStation);
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while adding a new station.' });
+  }
+};

@@ -100,7 +100,6 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
   const toggleMapModal = () => {
     setIsMapModalOpen(!isMapModalOpen);
   };
-  
 
   useEffect(() => {
     setLoading(true);
