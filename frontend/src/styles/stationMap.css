@@ -10,22 +10,22 @@
 
 @keyframes circleMarker {
   0% {
-    stroke-width: 0.7em;
+    stroke-width: 0.6em;
   }
   20% {
-    stroke-width: 0.65em;
-  }
-  40% {
-    stroke-width: 0.6em;
-  }
-  60% {
     stroke-width: 0.55em;
   }
+  40% {
+    stroke-width: 0.5em;
+  }
+  60% {
+    stroke-width: 0.45em;
+  }
   80% {
-    stroke-width: 0.6em;
+    stroke-width: 0.4em;
   }
   100% {
-    stroke-width: 0.65em;
+    stroke-width: 0.35em;
   }
 }
 

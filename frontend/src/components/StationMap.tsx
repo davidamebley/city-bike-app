@@ -31,7 +31,7 @@ const StationMap: React.FC<StationMapProps> = ({ location, name, address }) => {
         className='circle-marker'
         key={location.latitude}
         center={[location.latitude, location.longitude]}
-        radius={10}
+        radius={7}
         weight={5}
       >
         <Popup>

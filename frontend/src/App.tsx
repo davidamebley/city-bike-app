@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Tabs, Tab, Toolbar, Typography } from '@mui/material';
+import { AppBar, Tabs, Tab, Toolbar, Typography, Box } from '@mui/material';
 
 import { JourneyList } from './components/JourneyList';
 import { StationList } from './components/StationList';
@@ -15,10 +15,17 @@ function App() {
   return (
     <div className="App">
       <AppBar position="static" color="default" sx={{ backgroundColor: 'white' }}>
-      <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Helsinki City Bikes
-          </Typography>
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <Box>
+            <Typography 
+              variant="h6" 
+              component="div" 
+              sx={{ textAlign: 'start', cursor:'pointer', flexGrow: 1, color:'#1976d2'}}
+              onClick={() => setActiveTab(0)}
+            >
+              Helsinki City Bikes
+            </Typography>
+          </Box>
           <Tabs value={activeTab} onChange={handleChange} textColor="primary">
             <Tab label="Journeys" />
             <Tab label="Stations" />
