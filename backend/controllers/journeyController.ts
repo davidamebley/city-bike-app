@@ -69,3 +69,33 @@ export const getJourneys = async (req: any, res: any) => {
       }
       
 }
+
+// @desc Add a new Journey
+// @route POST /api/journeys
+// @access Public
+export const addJourney = async (req: any, res: any) => {
+    const { departure, return: returnDate, departure_station_id, departure_station_name, return_station_id, return_station_name, covered_distance, duration } = req.body;
+  
+    if (!departure || !returnDate || !departure_station_id || !departure_station_name || !return_station_id || !return_station_name || !covered_distance || !duration) {
+        res.status(400).json({ error: 'Please provide all required fields' });
+        return;
+    }
+  
+    try {
+        const newJourney = new Journey({ 
+            departure, 
+            return: returnDate, 
+            departure_station_id, 
+            departure_station_name, 
+            return_station_id, 
+            return_station_name, 
+            covered_distance, 
+            duration 
+        });
+        await newJourney.save();
+        res.status(201).json(newJourney);
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while adding a new journey.' });
+    }
+  };
+  
