@@ -70,38 +70,46 @@ export const getStations = async (req: any, res: any) => {
 // @access Public
 export const getStation = async (req: any, res: any) => {
   const stationId = req.params.id;
-  const station = await Station.findById(stationId);
-  const journeysStarting = await Journey.countDocuments({ departure_station_id: stationId });
-  const journeysEnding = await Journey.countDocuments({ return_station_id: stationId });
 
-  // Calculate average distances
-  const averageStartingDistance = await Journey.aggregate([
+  // Check if the station is in the cache
+  const cachedStation = cache.get(`station-${stationId}`);
+
+  if (cachedStation) {
+    // Return the cached station if it exists
+    res.status(200).json(cachedStation);
+  } else {
+    const station = await Station.findById(stationId);
+    const journeysStarting = await Journey.countDocuments({ departure_station_id: stationId });
+    const journeysEnding = await Journey.countDocuments({ return_station_id: stationId });
+
+    // Calculate average distances
+    const averageStartingDistance = await Journey.aggregate([
+        { $match: { departure_station_id: stationId } },
+        { $group: { _id: null, avgDistance: { $avg: '$covered_distance' } } },
+    ]);
+
+    const averageEndingDistance = await Journey.aggregate([
+        { $match: { return_station_id: stationId } },
+        { $group: { _id: null, avgDistance: { $avg: '$covered_distance' } } },
+    ]);
+
+    // Calculate top 5 popular return stations
+    const popularReturnStations = await Journey.aggregate([
       { $match: { departure_station_id: stationId } },
-      { $group: { _id: null, avgDistance: { $avg: '$covered_distance' } } },
-  ]);
+      { $group: { _id: '$return_station_id', count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $limit: 5 },
+    ]);
 
-  const averageEndingDistance = await Journey.aggregate([
+    // Calculate top 5 popular departure stations
+    const popularDepartureStations = await Journey.aggregate([
       { $match: { return_station_id: stationId } },
-      { $group: { _id: null, avgDistance: { $avg: '$covered_distance' } } },
-  ]);
+      { $group: { _id: '$departure_station_id', count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $limit: 5 },
+    ]);
 
-  // Calculate top 5 popular return stations
-  const popularReturnStations = await Journey.aggregate([
-    { $match: { departure_station_id: stationId } },
-    { $group: { _id: '$return_station_id', count: { $sum: 1 } } },
-    { $sort: { count: -1 } },
-    { $limit: 5 },
-  ]);
-
-  // Calculate top 5 popular departure stations
-  const popularDepartureStations = await Journey.aggregate([
-    { $match: { return_station_id: stationId } },
-    { $group: { _id: '$departure_station_id', count: { $sum: 1 } } },
-    { $sort: { count: -1 } },
-    { $limit: 5 },
-  ]);
-
-  res.status(200).json({
+    const result = {
       station,
       journeysStarting,
       journeysEnding,
@@ -109,5 +117,11 @@ export const getStation = async (req: any, res: any) => {
       averageEndingDistance: averageEndingDistance[0]?.avgDistance || 0,
       popularReturnStations,
       popularDepartureStations,
-  });
+    };
+
+    // Cache the result with a unique key and set an optional TTL (in seconds)
+    cache.set(`station-${stationId}`, result, 3600);
+
+    res.status(200).json(result);
+  }
 };

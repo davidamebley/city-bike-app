@@ -72,69 +72,70 @@ export const StationList: React.FC = () => {
 
   return (
     <>
-    {selectedStation ? (
-        <SingleStationView
-          stationId={selectedStation}
-          onBack={() => setSelectedStation(null)}
-        />
-      ) : (
-        loading ? (
-            <div className="spinner" >
-              <CircularProgress />
-            </div>
-    
-          ) : (
-            <div className='container__station-list'>
-                <div className='station-search-field'>
-                    <TextField
-                        label="Search"
-                        placeholder="Search station"
-                        fullWidth
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-
-                    />
-                </div>
-                <TableContainer component={Paper}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol1'>
-                                    Station ID
-                                </TableCell>
-                                <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol2'>
-                                    Station Name
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {stations.map((station, index:number) => (
-                            <TableRow className='station-list-item'
-                                key={index}
-                                onClick={() => setSelectedStation(station._id)}>
-                                <TableCell 
-                                    className='fixedWidthCol1'>{station._id}</TableCell>
-                                <TableCell 
-                                    className='fixedWidthCol2'>{station.name}</TableCell>
-                            </TableRow>
-                            ))}
-                        </TableBody>
-                        <TableBody>
-                            <TableRow>
-                                <TablePagination
-                                    count={totalCount}
-                                    page={page - 1}
-                                    onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}
-                                    rowsPerPage={limit}
-                                    onRowsPerPageChange={handleChangeRowsPerPage}
-                                />
-                            </TableRow>
-                        </TableBody>
-                    </Table>
-            </TableContainer>
-      </div>
-          ))}
-    
+      {selectedStation ? (
+          <SingleStationView
+            stationId={selectedStation}
+            onBack={() => setSelectedStation(null)}
+          />
+        ) : (
+          <div className='container__station-list'>
+              <div className='station-search-field'>
+                  <TextField
+                      label="Search"
+                      placeholder="Search station"
+                      fullWidth
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                  />
+              </div>
+              {loading ? (
+                  <div className="spinner" >
+                      <CircularProgress />
+                  </div>
+      
+                  ) : (
+                  <TableContainer component={Paper}>
+                      <Table>
+                          <TableHead>
+                              <TableRow>
+                                  <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol1'>
+                                      Station ID
+                                  </TableCell>
+                                  <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol2'>
+                                      Station Name
+                                  </TableCell>
+                              </TableRow>
+                          </TableHead>
+                          <TableBody>
+                              {stations.map((station, index:number) => (
+                              <TableRow className='station-list-item'
+                                  key={index}
+                                  onClick={() => setSelectedStation(station._id)}>
+                                  <TableCell 
+                                      className='fixedWidthCol1'>{station._id}</TableCell>
+                                  <TableCell 
+                                      className='fixedWidthCol2'>{station.name}</TableCell>
+                              </TableRow>
+                              ))}
+                          </TableBody>
+                          <TableBody>
+                              <TableRow>
+                                  <TablePagination
+                                      count={totalCount}
+                                      page={page - 1}
+                                      onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}
+                                      rowsPerPage={limit}
+                                      onRowsPerPageChange={handleChangeRowsPerPage}
+                                  />
+                              </TableRow>
+                          </TableBody>
+                      </Table>
+                  </TableContainer>
+          )
+      }
+          </div>
+        )
+      }
     </>
   );
 };
