@@ -15,6 +15,29 @@ export const getJourneys = async (req: any, res: any) => {
     const sortBy = req.query.sortBy || 'departure_station_name';
     const sortOrder = req.query.sortOrder;
 
+    // Filtering
+    const minDistance = parseFloat(req.query.minDistance) || 0;
+    const maxDistance = parseFloat(req.query.maxDistance) || Infinity;
+    const minDuration = parseFloat(req.query.minDuration) || 0;
+    const maxDuration = parseFloat(req.query.maxDuration) || Infinity;
+
+    const filterQuery = {
+        $and: [
+          {
+            covered_distance: {
+              $gte: minDistance,
+              $lte: maxDistance,
+            },
+          },
+          {
+            duration: {
+              $gte: minDuration,
+              $lte: maxDuration,
+            },
+          },
+        ],
+      };
+
     const searchQuery = search
     ? {
         $or: [
@@ -31,10 +54,11 @@ export const getJourneys = async (req: any, res: any) => {
         ],
       }
     : {};
-      
 
+    const query = search ? { $and: [searchQuery, filterQuery] } : filterQuery;
+      
     try {
-        const journeys = await Journey.find(searchQuery)
+        const journeys = await Journey.find(query)
             .skip(skip)
             .limit(limit)
             .sort({ [sortBy]: sortOrder === 'asc' ? 1 : -1 })
