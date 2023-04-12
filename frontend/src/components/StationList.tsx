@@ -9,11 +9,14 @@ import {
     Paper,
     TablePagination,
     TextField,
-    CircularProgress
+    CircularProgress,
+    Alert,
+    Button
   } from '@mui/material';
 
 import { SingleStationView } from './SingleStationView';
 import '../styles/stationList.css';
+import { AddStationDialog } from './AddStationDialog';
 
 interface Station {
   _id: string;
@@ -45,6 +48,8 @@ export const StationList: React.FC = () => {
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
 
   useEffect(() => {
@@ -70,6 +75,26 @@ export const StationList: React.FC = () => {
     setPage(1);
   };
 
+  const handleAddStation = async (name: string, address: string, lat: number, lng: number) => {
+    const response = await fetch(`${serverUrl}/api/stations`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, address, x:lng, y:lat }),  //x:lng; y:lat
+    });
+
+    if (response.ok) {
+      setPage(1);
+      setSearch('');
+      setModalOpen(false);
+      setErrorMessage(null);
+    } else {
+      const errorData = await response.json();
+      setErrorMessage(errorData.error || 'An error occurred while saving the station data');
+    }
+  };
+
   return (
     <>
       {selectedStation ? (
@@ -88,6 +113,19 @@ export const StationList: React.FC = () => {
                       onChange={(e) => setSearch(e.target.value)}
                   />
               </div>
+
+              {errorMessage && (
+              <div className="error-message">
+                <Alert severity="error">{errorMessage}</Alert>
+              </div>
+              )}
+
+              <div className='add-station-button'>
+                <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}>
+                    Add Station
+                </Button>
+              </div>
+
               {loading ? (
                   <div className="spinner" >
                       <CircularProgress />
@@ -136,6 +174,11 @@ export const StationList: React.FC = () => {
           </div>
         )
       }
+      <AddStationDialog
+        open={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSave={handleAddStation}
+      />
     </>
   );
 };

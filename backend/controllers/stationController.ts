@@ -133,7 +133,7 @@ export const addStation = async (req: any, res: any) => {
   const { name, address, x, y } = req.body;
 
   if (!name || !address || !x || !y) {
-    res.status(400).json({ error: 'Please provide all required fields: name, address, x, and y.' });
+    res.status(400).json({ error: 'Please provide all required fields: name, address, x, and y, and in the right format.' });
     return;
   }
 
