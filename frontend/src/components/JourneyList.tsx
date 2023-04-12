@@ -10,7 +10,8 @@ import {
   TablePagination,
   TextField,
   TableSortLabel,
-  CircularProgress
+  CircularProgress,
+  Slider
 } from '@mui/material';
 
 import '../styles/journeyList.css';
@@ -31,11 +32,15 @@ const fetchJourneys = async (
   search: string,
   sortBy: string,
   sortOrder: 'asc' | 'desc',
+  minDistance: number,
+  maxDistance: number,
+  minDuration: number,
+  maxDuration: number,
   setJourneys: React.Dispatch<React.SetStateAction<Journey[]>>,
   setTotalCount: React.Dispatch<React.SetStateAction<number>>
 ) => {
   const response = await fetch(
-    `${serverUrl}/api/journeys?page=${page}&limit=${limit}&search=${search}&sortBy=${sortBy}&sortOrder=${sortOrder}`
+    `${serverUrl}/api/journeys?page=${page}&limit=${limit}&search=${search}&sortBy=${sortBy}&sortOrder=${sortOrder}&minDistance=${minDistance}&maxDistance=${maxDistance}&minDuration=${minDuration}&maxDuration=${maxDuration}`
   );
   const data = await response.json();
   setJourneys(data.journeys);
@@ -50,14 +55,28 @@ export const JourneyList: React.FC = () => {
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('departure_station_name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [distanceRange, setDistanceRange] = useState<[number, number]>([0, 100]);
+  const [durationRange, setDurationRange] = useState<[number, number]>([0, 300]);
   const [loading, setLoading] = useState(true);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
 
   useEffect(() => {
     setLoading(true); // Set loading to true when fetching data
-    fetchJourneys(serverUrl, page, limit, search, sortBy, sortOrder, setJourneys, setTotalCount)
-    .then(() => setLoading(false)); // Set loading to false when data is fetched
-  }, [page, limit, search, sortBy, sortOrder, serverUrl]);
+    fetchJourneys(
+      serverUrl, 
+      page, 
+      limit, 
+      search, 
+      sortBy, 
+      sortOrder, 
+      distanceRange[0],
+      distanceRange[1],
+      durationRange[0],
+      durationRange[1],
+      setJourneys, 
+      setTotalCount
+      ).then(() => setLoading(false)); // Set loading to false when data is fetched
+  }, [page, limit, search, sortBy, sortOrder, serverUrl, distanceRange, durationRange]);
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement> | null, newPage: number
@@ -83,15 +102,45 @@ export const JourneyList: React.FC = () => {
 
   return (
     <div className='container__journey-list'>
-      <div className='journey-search-field'>
-      <TextField
-        label="Search"
-        placeholder="Search departure or return station"
-        fullWidth
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <div className="container__journey-action-area">
+        <div className='journey-search-field'>
+          <TextField
+            label="Search"
+            placeholder="Search departure or return station"
+            fullWidth
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        <div className="container__journey-filter">
+          <div className="journey-filter-field">
+            <label htmlFor="distance-slider">Distance range (km):</label>
+            <Slider
+              id="distance-slider"
+              min={0}
+              max={100}
+              step={1}
+              value={distanceRange}
+              onChange={(_, value) => setDistanceRange(value as [number, number])}
+              valueLabelDisplay="auto"
+            />
+          </div>
+          <div className="journey-filter-field">
+            <label htmlFor="duration-slider">Duration range (mins):</label>
+            <Slider
+              id="duration-slider"
+              min={0}
+              max={300}
+              step={1}
+              value={durationRange}
+              onChange={(_, value) => setDurationRange(value as [number, number])}
+              valueLabelDisplay="auto"
+            />
+          </div>
+        </div>
       </div>
+
       {loading ? (
         <div className="spinner" >
           <CircularProgress />

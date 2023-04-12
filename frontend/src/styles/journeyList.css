@@ -7,10 +7,32 @@
   padding: 1rem;
   padding-top: 0;
 }
+.container__journey-action-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  margin: 1rem 0;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.container__journey-filter {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 1rem;
+}
+.journey-filter-field {
+  margin-right: 4rem;
+}
 
 .journey-search-field {
   width: 100%;
-  margin: 1rem 0;
+  margin: 1rem 0 0 1rem;
+  background-color: #f7f7f7;
 }
 .fixedWidthCol1 {
   width: 15rem;

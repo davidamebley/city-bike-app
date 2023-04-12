@@ -16,10 +16,10 @@ export const getJourneys = async (req: any, res: any) => {
     const sortOrder = req.query.sortOrder;
 
     // Filtering
-    const minDistance = parseFloat(req.query.minDistance) || 0;
-    const maxDistance = parseFloat(req.query.maxDistance) || Infinity;
-    const minDuration = parseFloat(req.query.minDuration) || 0;
-    const maxDuration = parseFloat(req.query.maxDuration) || Infinity;
+    const minDistance = parseFloat(req.query.minDistance) * 1000 || 0;
+    const maxDistance = parseFloat(req.query.maxDistance) * 1000 || Infinity;
+    const minDuration = parseFloat(req.query.minDuration) * 60 || 0;
+    const maxDuration = parseFloat(req.query.maxDuration) * 60 || Infinity;
 
     const filterQuery = {
         $and: [
