@@ -104,6 +104,7 @@ export const StationList: React.FC = () => {
           />
         ) : (
           <div className='container__station-list'>
+            <div className="station-list--action-area">
               <div className='station-search-field'>
                   <TextField
                       label="Search"
@@ -113,18 +114,18 @@ export const StationList: React.FC = () => {
                       onChange={(e) => setSearch(e.target.value)}
                   />
               </div>
+              <div className='add-station-button'>
+                <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}>
+                    Add Station
+                </Button>
+              </div>
+            </div>
 
               {errorMessage && (
               <div className="error-message">
                 <Alert severity="error">{errorMessage}</Alert>
               </div>
               )}
-
-              <div className='add-station-button'>
-                <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}>
-                    Add Station
-                </Button>
-              </div>
 
               {loading ? (
                   <div className="spinner" >
