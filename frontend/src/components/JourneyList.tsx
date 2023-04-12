@@ -114,29 +114,32 @@ export const JourneyList: React.FC = () => {
         </div>
 
         <div className="container__journey-filter">
-          <div className="journey-filter-field">
-            <label htmlFor="distance-slider">Distance range (km):</label>
-            <Slider
-              id="distance-slider"
-              min={0}
-              max={100}
-              step={1}
-              value={distanceRange}
-              onChange={(_, value) => setDistanceRange(value as [number, number])}
-              valueLabelDisplay="auto"
-            />
-          </div>
-          <div className="journey-filter-field">
-            <label htmlFor="duration-slider">Duration range (mins):</label>
-            <Slider
-              id="duration-slider"
-              min={0}
-              max={300}
-              step={1}
-              value={durationRange}
-              onChange={(_, value) => setDurationRange(value as [number, number])}
-              valueLabelDisplay="auto"
-            />
+          <h3>Refine results:</h3>
+          <div className="journey-filter-list">
+            <div className="journey-filter-field">
+              <label htmlFor="distance-slider">Distance range (km):</label>
+              <Slider
+                id="distance-slider"
+                min={0}
+                max={100}
+                step={1}
+                value={distanceRange}
+                onChange={(_, value) => setDistanceRange(value as [number, number])}
+                valueLabelDisplay="auto"
+              />
+            </div>
+            <div className="journey-filter-field">
+              <label htmlFor="duration-slider">Duration range (mins):</label>
+              <Slider
+                id="duration-slider"
+                min={0}
+                max={300}
+                step={1}
+                value={durationRange}
+                onChange={(_, value) => setDurationRange(value as [number, number])}
+                valueLabelDisplay="auto"
+              />
+            </div>
           </div>
         </div>
       </div>
