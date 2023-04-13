@@ -77,4 +77,8 @@
   .station-list--action-area {
     flex-direction: column;
   }
+  .add-station-button {
+    align-self: flex-start;
+    margin: 0 0 0.5rem 1rem;
+  }
 }
