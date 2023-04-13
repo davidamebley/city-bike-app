@@ -34,7 +34,7 @@ export const getStations = async (req: any, res: any) => {
 
     try {
       const stations = await Station.find(searchQuery)
-        
+        .sort({ _id: -1 })  // sort stations by _id in descending order
         .skip(skip)
         .limit(limit)
         .lean();
