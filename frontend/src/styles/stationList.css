@@ -14,7 +14,7 @@
   align-items: flex-start;
   justify-content: space-between;
   margin: 1rem 0;
-  border: 1px solid gray;
+  border: 0.5px solid gray;
   border-radius: 5px;
   background-color: #ffffff;
 }
