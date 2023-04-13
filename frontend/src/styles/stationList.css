@@ -24,8 +24,8 @@
   background-color: #f7f7f7;
 }
 .add-station-button {
-  align-self: flex-end;
-  margin: 0 1rem 1rem 0;
+  align-self: center;
+  margin: 0 1rem 0rem 0;
 }
 .error-message,
 .success-message {
