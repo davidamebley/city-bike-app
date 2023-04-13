@@ -27,7 +27,8 @@
   align-self: flex-end;
   margin: 0 1rem 1rem 0;
 }
-.error-message {
+.error-message,
+.success-message {
   margin-bottom: 0.5rem;
 }
 .fixedWidthCol1 {

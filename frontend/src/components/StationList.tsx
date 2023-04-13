@@ -50,6 +50,7 @@ export const StationList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
 
@@ -90,6 +91,7 @@ export const StationList: React.FC = () => {
       setSearch('');
       setModalOpen(false);
       setErrorMessage(null);
+      setSuccessMessage('New station added successfully.'); 
     } else {
       const errorData = await response.json();
       setErrorMessage(errorData.error || 'An error occurred while saving the station data');
@@ -123,9 +125,14 @@ export const StationList: React.FC = () => {
             </div>
 
               {errorMessage && (
-              <div className="error-message">
-                <Alert severity="error">{errorMessage}</Alert>
-              </div>
+                <div className="error-message">
+                  <Alert severity="error">{errorMessage}</Alert>
+                </div>
+              )}
+              {successMessage && (
+                <div className="success-message">
+                  <Alert severity="success">{successMessage}</Alert>
+                </div>
               )}
 
               {loading ? (
