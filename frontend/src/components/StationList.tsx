@@ -92,6 +92,11 @@ export const StationList: React.FC = () => {
       setModalOpen(false);
       setErrorMessage(null);
       setSuccessMessage('New station added successfully.'); 
+      
+      // Refetch the stations after successfully adding a new station
+      setLoading(true);
+      await fetchStations(serverUrl, page, limit, search, setStations, setTotalCount);
+      setLoading(false);
     } else {
       const errorData = await response.json();
       setErrorMessage(errorData.error || 'An error occurred while saving the station data');
