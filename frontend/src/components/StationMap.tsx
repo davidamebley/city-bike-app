@@ -15,10 +15,6 @@ interface StationMapProps {
 }
 
 const StationMap: React.FC<StationMapProps> = ({ location, name, address }) => {
-  const defaultCenter = {
-    lat: 60.1699,
-    lng: 24.9384,
-  };
   const defaultZoom = 13;
 
   return (
