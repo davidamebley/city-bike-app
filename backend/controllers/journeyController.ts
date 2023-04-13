@@ -64,7 +64,21 @@ export const getJourneys = async (req: any, res: any) => {
             .sort({ [sortBy]: sortOrder === 'asc' ? 1 : -1 })
             .lean();
         // lean returns plain JavaScript objects instead of Mongoose documents, which can be faster to work with
-      
+        
+        // Get maximum duration from cache
+        let maxDuration = cache.get('maxDuration')
+
+        // If maxDuration is not in cache, fetch from database and set cache
+        if (maxDuration === undefined) {
+            const maxDurationResult = await Journey.aggregate([
+              { $match: filterQuery },
+              { $group: { _id: null, maxDuration: { $max: "$duration" } } },
+            ]);
+  
+            maxDuration = maxDurationResult.length > 0 ? maxDurationResult[0].maxDuration / 60 : 0;
+            cache.set('maxDuration', maxDuration);
+        }
+
         // Check if totalCount is in cache
         let totalCount: number | undefined;
       
@@ -86,7 +100,8 @@ export const getJourneys = async (req: any, res: any) => {
           limit,
           totalPages: Math.ceil(totalCount / limit),
           totalCount,
-          journeys
+          journeys,
+          maxDuration
         });
       } catch (error) {
         res.status(500).json({ error: 'An error occurred while fetching journeys.' });
