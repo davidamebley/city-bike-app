@@ -38,7 +38,8 @@ const fetchJourneys = async (
   maxDuration: number,
   setJourneys: React.Dispatch<React.SetStateAction<Journey[]>>,
   setTotalCount: React.Dispatch<React.SetStateAction<number>>,
-  setMaxDuration: React.Dispatch<React.SetStateAction<number>>
+  setMaxDuration: React.Dispatch<React.SetStateAction<number>>,
+  setMaxDistance: React.Dispatch<React.SetStateAction<number>>
 ) => {
   const response = await fetch(
     `${serverUrl}/api/journeys?page=${page}&limit=${limit}&search=${search}&sortBy=${sortBy}&sortOrder=${sortOrder}&minDistance=${minDistance}&maxDistance=${maxDistance}&minDuration=${minDuration}&maxDuration=${maxDuration}`
@@ -47,6 +48,7 @@ const fetchJourneys = async (
   setJourneys(data.journeys);
   setTotalCount(data.totalCount);
   setMaxDuration(data.maxDuration);
+  setMaxDistance(data.maxDistance);
 };
 
 export const JourneyList: React.FC = () => {
@@ -58,6 +60,7 @@ export const JourneyList: React.FC = () => {
   const [sortBy, setSortBy] = useState('departure_station_name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [maxDuration, setMaxDuration] = useState<number>(300);
+  const [maxDistance, setMaxDistance] = useState<number>(100);
   const [distanceRange, setDistanceRange] = useState<[number, number]>([0, 100]);
   const [durationRange, setDurationRange] = useState<[number, number]>([0, 300]);
   const [loading, setLoading] = useState(true);
@@ -78,7 +81,8 @@ export const JourneyList: React.FC = () => {
       durationRange[1],
       setJourneys, 
       setTotalCount,
-      setMaxDuration
+      setMaxDuration,
+      setMaxDistance
       ).then(() => setLoading(false)); // Set loading to false when data is fetched
   }, [page, limit, search, sortBy, sortOrder, serverUrl, distanceRange, durationRange]);
 
@@ -125,7 +129,7 @@ export const JourneyList: React.FC = () => {
               <Slider
                 id="distance-slider"
                 min={0}
-                max={100}
+                max={parseInt(maxDistance.toFixed(0))}
                 step={1}
                 value={distanceRange}
                 onChange={(_, value) => setDistanceRange(value as [number, number])}
