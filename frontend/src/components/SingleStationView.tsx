@@ -117,7 +117,7 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
         setPopularDepartureStations);
       setLoading(false);
     })();
-  }, [stationId]);
+  }, [stationId, serverUrl]);
 
   return (
     <div>
