@@ -33,10 +33,11 @@
 }
 .journey-filter-field {
   margin-right: 4rem;
+  width: 30%;
 }
 
 .journey-search-field {
-  width: 100%;
+  width: 20rem;
   margin: 1rem 0 0 1rem;
   background-color: #f7f7f7;
 }
@@ -65,9 +66,17 @@
   height: 100px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
   .journey-search-field {
-    width: 20rem;
-    margin-bottom: 1rem;
+    width: calc(100% - 2rem); /* Subtracting 1rem left and 1rem right margin */
+  }
+  .journey-filter-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .journey-filter-field {
+    width: calc(100% - 4rem);
   }
 }

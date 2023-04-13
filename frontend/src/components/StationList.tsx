@@ -21,6 +21,7 @@ import { AddStationDialog } from './AddStationDialog';
 interface Station {
   _id: string;
   name: string;
+  address: string;
 }
 
 const fetchStations = async (
@@ -143,6 +144,9 @@ export const StationList: React.FC = () => {
                                   <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol2'>
                                       Station Name
                                   </TableCell>
+                                  <TableCell sx={{ fontWeight: 'bold' }} className='fixedWidthCol2'>
+                                      Station Address
+                                  </TableCell>
                               </TableRow>
                           </TableHead>
                           <TableBody>
@@ -151,9 +155,14 @@ export const StationList: React.FC = () => {
                                   key={index}
                                   onClick={() => setSelectedStation(station._id)}>
                                   <TableCell 
-                                      className='fixedWidthCol1'>{station._id}</TableCell>
+                                      className='fixedWidthCol1'>{station._id}
+                                  </TableCell>
                                   <TableCell 
-                                      className='fixedWidthCol2'>{station.name}</TableCell>
+                                      className='fixedWidthCol2'>{station.name}
+                                  </TableCell>
+                                  <TableCell 
+                                      className='fixedWidthCol2'>{station.address}
+                                  </TableCell>
                               </TableRow>
                               ))}
                           </TableBody>

@@ -33,7 +33,11 @@ export const getStations = async (req: any, res: any) => {
     : {};
 
     try {
-      const stations = await Station.find(searchQuery).skip(skip).limit(limit).lean();
+      const stations = await Station.find(searchQuery)
+        
+        .skip(skip)
+        .limit(limit)
+        .lean();
       // lean returns plain JavaScript objects instead of Mongoose documents, which can be faster to work with
     
       // Check if totalCount is in cache

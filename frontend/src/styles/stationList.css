@@ -14,14 +14,18 @@
   align-items: flex-start;
   justify-content: space-between;
   margin: 1rem 0;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: #ffffff;
 }
 .station-search-field {
   width: 20rem;
-  margin: 0;
+  margin: 1rem 0 1rem 1rem;
+  background-color: #f7f7f7;
 }
 .add-station-button {
   align-self: flex-end;
-  margin-bottom: 0.5rem;
+  margin: 0 1rem 1rem 0;
 }
 .error-message {
   margin-bottom: 0.5rem;
@@ -66,7 +70,7 @@
 
 @media screen and (max-width: 768px) {
   .station-search-field {
-    width: 100%;
+    width: calc(100% - 2rem); /* Subtracting 1rem left and 1rem right margin */
     margin-bottom: 0.5rem;
   }
   .station-list--action-area {
