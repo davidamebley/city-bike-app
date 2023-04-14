@@ -17,39 +17,45 @@ const mockJourneys = [
   },
 ];
 
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    json: () =>
-      Promise.resolve({
-        journeys: mockJourneys,
-        totalCount: 1,
-        maxDuration: 300,
-        maxDistance: 100,
-      }),
-    headers: new Headers(),
-    ok: true,
-    redirected: false,
-    status: 200,
-    statusText: "OK",
-    type: "basic",
-    url: "http://example.com",
-    body: null,
-    bodyUsed: false,
-    arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
-    blob: () => Promise.resolve(new Blob()),
-    formData: () => Promise.resolve(new FormData()),
-    text: () => Promise.resolve(""),
-    clone: function () {
-      return this;
-    },
-  })
-);
+
+beforeEach(() => {
+
+  global.fetch = jest.fn(() =>
+    Promise.resolve({
+      json: () =>
+        Promise.resolve({
+          journeys: mockJourneys,
+          totalCount: 1,
+          maxDuration: 300,
+          maxDistance: 100,
+        }),
+      headers: new Headers(),
+      ok: true,
+      redirected: false,
+      status: 200,
+      statusText: "OK",
+      type: "basic",
+      url: "http://example.com",
+      body: null,
+      bodyUsed: false,
+      arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
+      blob: () => Promise.resolve(new Blob()),
+      formData: () => Promise.resolve(new FormData()),
+      text: () => Promise.resolve(""),
+      clone: function () {
+        return this;
+      },
+    })
+  );
+
+  render(<JourneyList />);
+});
 
 describe('JourneyList', () => {
   // render the JourneyList component before each test case
-  beforeEach(() => {
+  /* beforeEach(() => {
     render(<JourneyList />);
-  });
+  }); */
 
   // clear all the mock functions after each test case
   afterEach(() => {

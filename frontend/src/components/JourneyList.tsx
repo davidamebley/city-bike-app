@@ -11,7 +11,8 @@ import {
   TextField,
   TableSortLabel,
   CircularProgress,
-  Slider
+  Slider,
+  InputLabel
 } from '@mui/material';
 
 import '../styles/journeyList.css';
@@ -134,7 +135,7 @@ export const JourneyList: React.FC = () => {
           <h3>Refine results:</h3>
           <div className="journey-filter-list">
             <div className="journey-filter-field">
-              <label htmlFor="distance-slider">Distance range (km):</label>
+            <InputLabel htmlFor="distance-slider">Distance range (km):</InputLabel>
               <Slider
                 id="distance-slider"
                 min={0}
@@ -146,7 +147,7 @@ export const JourneyList: React.FC = () => {
               />
             </div>
             <div className="journey-filter-field">
-              <label htmlFor="duration-slider">Duration range (mins):</label>
+            <InputLabel htmlFor="duration-slider">Duration range (mins):</InputLabel>
               <Slider
                 id="duration-slider"
                 min={0}
