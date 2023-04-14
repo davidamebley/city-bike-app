@@ -32,7 +32,7 @@ global.fetch = jest.fn(() =>
     status: 200,
     statusText: "OK",
     type: "basic",
-    url: "https://example.com",
+    url: "http://example.com",
     body: null,
     bodyUsed: false,
     arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
@@ -46,5 +46,22 @@ global.fetch = jest.fn(() =>
 );
 
 describe('JourneyList', () => {
-  
+  // render the JourneyList component before each test case
+  beforeEach(() => {
+    render(<JourneyList />);
+  });
+
+  // clear all the mock functions after each test case
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('renders JourneyList component and its elements', async () => {
+    await waitFor(() => expect(screen.getByText(/Refine results:/i)).toBeInTheDocument());
+    expect(screen.getByLabelText(/Search/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Distance range/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Duration range/i)).toBeInTheDocument();
+    expect(screen.getByText(/Station A/i)).toBeInTheDocument();
+  });
+
 });

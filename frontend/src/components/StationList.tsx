@@ -32,11 +32,20 @@ const fetchStations = async (
     setStations: React.Dispatch<React.SetStateAction<Station[]>>,
     setTotalCount: React.Dispatch<React.SetStateAction<number>>
   ) => {
-    const requestUrl = `${serverUrl}/api/stations?page=${page}&limit=${limit}&search=${search}`;
-    const response = await fetch(requestUrl);
-    const data = await response.json();
-    setStations(data.stations);
-    setTotalCount(data.totalCount);
+    try {
+      const requestUrl = `${serverUrl}/api/stations?page=${page}&limit=${limit}&search=${search}`;
+      const response = await fetch(requestUrl);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      setStations(data.stations);
+      setTotalCount(data.totalCount);
+    } catch (error) {
+      console.error('Error fetching stations:', error);
+    }
 };
   
   

@@ -41,14 +41,23 @@ const fetchJourneys = async (
   setMaxDuration: React.Dispatch<React.SetStateAction<number>>,
   setMaxDistance: React.Dispatch<React.SetStateAction<number>>
 ) => {
-  const response = await fetch(
-    `${serverUrl}/api/journeys?page=${page}&limit=${limit}&search=${search}&sortBy=${sortBy}&sortOrder=${sortOrder}&minDistance=${minDistance}&maxDistance=${maxDistance}&minDuration=${minDuration}&maxDuration=${maxDuration}`
-  );
-  const data = await response.json();
-  setJourneys(data.journeys);
-  setTotalCount(data.totalCount);
-  setMaxDuration(data.maxDuration);
-  setMaxDistance(data.maxDistance);
+  try {
+    const requestUrl = `${serverUrl}/api/journeys?page=${page}&limit=${limit}&search=${search}&sortBy=${sortBy}&sortOrder=${sortOrder}&minDistance=${minDistance}&maxDistance=${maxDistance}&minDuration=${minDuration}&maxDuration=${maxDuration}`;
+    
+    const response = await fetch(requestUrl);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    setJourneys(data.journeys);
+    setTotalCount(data.totalCount);
+    setMaxDuration(data.maxDuration);
+    setMaxDistance(data.maxDistance);
+  } catch (error) {
+    console.error('Error fetching journeys:', error);
+  }
 };
 
 export const JourneyList: React.FC = () => {
