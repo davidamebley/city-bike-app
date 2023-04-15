@@ -135,9 +135,12 @@ export const JourneyList: React.FC = () => {
           <h3>Refine results:</h3>
           <div className="journey-filter-list">
             <div className="journey-filter-field">
-            <InputLabel htmlFor="distance-slider">Distance range (km):</InputLabel>
+            <label id="distance-range-label" htmlFor="distance-slider">
+              Distance range (km):</label>
               <Slider
                 id="distance-slider"
+                data-testid="distance-slider"
+                aria-labelledby="distance-range-label"
                 min={0}
                 max={parseInt(maxDistance.toFixed(0))}
                 step={1}
@@ -147,9 +150,12 @@ export const JourneyList: React.FC = () => {
               />
             </div>
             <div className="journey-filter-field">
-            <InputLabel htmlFor="duration-slider">Duration range (mins):</InputLabel>
+            <label id="duration-range-label" htmlFor="duration-slider">
+              Duration range (mins):</label>
               <Slider
                 id="duration-slider"
+                data-testid="duration-slider"
+                aria-labelledby="duration-range-label"
                 min={0}
                 max={parseInt(maxDuration.toFixed(0))}
                 step={1}
