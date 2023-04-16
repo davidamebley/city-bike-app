@@ -1,16 +1,20 @@
-.container__journey-list {
+.container__journey-list,
+.container__journey-action-area,
+.container__journey-filter {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.container__journey-list {
   margin: 0 auto;
   max-width: 1200px;
   padding: 1rem;
   padding-top: 0;
 }
+
 .container__journey-action-area {
   width: 100%;
-  display: flex;
-  flex-direction: column;
   border: 0.5px solid gray;
   margin: 1rem 0;
   border-radius: 5px;
@@ -18,19 +22,17 @@
 }
 
 .container__journey-filter {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  width: calc(100% - 1rem);
   margin-left: 1rem;
 }
+
 .journey-filter-list {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+  margin-bottom: 1rem;
 }
+
 .journey-filter-field {
   display: flex;
   flex-direction: row;
@@ -43,14 +45,21 @@
   margin: 1rem 0 0 1rem;
   background-color: #f7f7f7;
 }
+
 .label__journey-filter,
 .input__journey-filter {
   width: 10rem;
+}
+
+.label__journey-filter {
+  display: inline-block;
   text-align: left;
 }
+
 .input__journey-filter {
   background-color: #f7f7f7;
 }
+
 .fixedWidthCol1 {
   width: 15rem;
 }
@@ -58,11 +67,13 @@
 .fixedWidthCol2 {
   width: 8rem;
 }
+
 .journey-list-item {
   transition: background-color 0.3s;
 }
+
 .journey-list-item:hover {
-  background-color: rgba(230, 230, 230, 1); /* Light grey background */
+  background-color: rgba(230, 230, 230, 1);
 }
 
 .spinner {
@@ -78,15 +89,20 @@
 
 @media screen and (max-width: 768px) {
   .journey-search-field {
-    width: calc(100% - 2rem); /* Subtracting 1rem left and 1rem right margin */
+    width: calc(100% - 2rem);
   }
-  .journey-filter-list {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
+
+  .journey-filter-list,
   .journey-filter-field {
-    width: calc(100% - 4rem);
+    width: calc(100% - 1rem);
+    flex-direction: column;
+  }
+
+  .label__journey-filter {
+    display: block;
+  }
+
+  .input__journey-filter {
+    width: 100%;
   }
 }

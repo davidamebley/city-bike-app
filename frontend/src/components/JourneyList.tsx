@@ -139,54 +139,62 @@ export const JourneyList: React.FC = () => {
         <div className="container__journey-filter">
           <h3>Refine results:</h3>
           <div className="journey-filter-list">
-            <div className="journey-filter-field">
-            <label className='label__journey-filter' htmlFor="min-distance-input">Min Distance (km):</label>
-            <TextField
-              id="min-distance-input"
-              className='input__journey-filter'
-              type="number"
-              inputProps={{ min: 0, max: maxDistance, step: 1 }}
-              value={distanceRange[0]}
-              onChange={(e) =>
-                setDistanceRange([Number(e.target.value), distanceRange[1]])
-              }
-            />
-            <label className='label__journey-filter' htmlFor="max-distance-input">Max Distance (km):</label>
-            <TextField
-              id="max-distance-input"
-              className='input__journey-filter'
-              type="number"
-              inputProps={{ min: 0, max: maxDistance, step: 1 }}
-              value={distanceRange[1]}
-              onChange={(e) =>
-                setDistanceRange([distanceRange[0], Number(e.target.value)])
-              }
-            />
-            </div>
-            <div className="journey-filter-field">
-            <label className='label__journey-filter' htmlFor="min-duration-input">Min Duration (mins):</label>
-            <TextField
-              id="min-duration-input"
-              className='input__journey-filter'
-              type="number"
-              inputProps={{ min: 0, max: maxDuration, step: 1 }}
-              value={durationRange[0]}
-              onChange={(e) =>
-                setDurationRange([Number(e.target.value), durationRange[1]])
-              }
-            />
-            <label className='label__journey-filter' htmlFor="max-duration-input">Max Duration (mins):</label>
-            <TextField
-              id="max-duration-input"
-              className='input__journey-filter'
-              type="number"
-              inputProps={{ min: 0, max: maxDuration, step: 1 }}
-              value={durationRange[1]}
-              onChange={(e) =>
-                setDurationRange([durationRange[0], Number(e.target.value)])
-              }
-            />
-            </div>
+            {/* <div className="journey-filter-field"> */}
+              <div className="journey-filter-field__group">
+                <label className='label__journey-filter' htmlFor="min-distance-input">Min Distance (km):</label>
+                <TextField
+                  id="min-distance-input"
+                  className='input__journey-filter'
+                  type="number"
+                  inputProps={{ min: 0, max: maxDistance, step: 1 }}
+                  value={distanceRange[0]}
+                  onChange={(e) =>
+                    setDistanceRange([Number(e.target.value), distanceRange[1]])
+                  }
+                />
+              </div>
+              <div className="journey-filter-field__group">
+                <label className='label__journey-filter' htmlFor="max-distance-input">Max Distance (km):</label>
+                <TextField
+                  id="max-distance-input"
+                  className='input__journey-filter'
+                  type="number"
+                  inputProps={{ min: 0, max: maxDistance, step: 1 }}
+                  value={distanceRange[1]}
+                  onChange={(e) =>
+                    setDistanceRange([distanceRange[0], Number(e.target.value)])
+                  }
+                />
+              </div>
+            {/* </div> */}
+            {/* <div className="journey-filter-field"> */}
+              <div className="journey-filter-field__group">
+                <label className='label__journey-filter' htmlFor="min-duration-input">Min Duration (mins):</label>
+                <TextField
+                  id="min-duration-input"
+                  className='input__journey-filter'
+                  type="number"
+                  inputProps={{ min: 0, max: maxDuration, step: 1 }}
+                  value={durationRange[0]}
+                  onChange={(e) =>
+                    setDurationRange([Number(e.target.value), durationRange[1]])
+                  }
+                />
+              </div>
+              <div className="journey-filter-field__group">
+                <label className='label__journey-filter' htmlFor="max-duration-input">Max Duration (mins):</label>
+                <TextField
+                  id="max-duration-input"
+                  className='input__journey-filter'
+                  type="number"
+                  inputProps={{ min: 0, max: maxDuration, step: 1 }}
+                  value={durationRange[1]}
+                  onChange={(e) =>
+                    setDurationRange([durationRange[0], Number(e.target.value)])
+                  }
+                />
+              </div>
+            {/* </div> */}
           </div>
         </div>
       </div>
