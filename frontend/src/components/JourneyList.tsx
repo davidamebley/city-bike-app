@@ -78,6 +78,8 @@ export const JourneyList: React.FC = () => {
     useState<[number, number]>([0, maxDuration]);
   const [distanceRange, setDistanceRange] = 
     useState<[number, number]>([0, maxDistance]);
+  const [debouncedDistanceRange] = useDebounce(distanceRange, 500);
+  const [debouncedDurationRange] = useDebounce(durationRange, 500);
   const [loading, setLoading] = useState(true);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
 
@@ -90,16 +92,16 @@ export const JourneyList: React.FC = () => {
       search, 
       sortBy, 
       sortOrder, 
-      distanceRange[0],
-      distanceRange[1],
-      durationRange[0],
-      durationRange[1],
+      debouncedDistanceRange[0],
+      debouncedDistanceRange[1],
+      debouncedDurationRange[0],
+      debouncedDurationRange[1],
       setJourneys, 
       setTotalCount,
       setMaxDuration,
       setMaxDistance
       ).then(() => setLoading(false)); // Set loading to false when data is fetched
-  }, [page, limit, debouncedSearch, sortBy, sortOrder, serverUrl, distanceRange, durationRange]);
+  }, [page, limit, debouncedSearch, sortBy, sortOrder, serverUrl, debouncedDistanceRange, debouncedDurationRange]);
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement> | null, newPage: number
