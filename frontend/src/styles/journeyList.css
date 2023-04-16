@@ -27,18 +27,28 @@
 .journey-filter-list {
   width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 .journey-filter-field {
-  margin-right: 4rem;
-  width: 30%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  gap: 1rem;
 }
 
 .journey-search-field {
   width: 20rem;
   margin: 1rem 0 0 1rem;
+  background-color: #f7f7f7;
+}
+.label__journey-filter,
+.input__journey-filter {
+  width: 10rem;
+  text-align: left;
+}
+.input__journey-filter {
   background-color: #f7f7f7;
 }
 .fixedWidthCol1 {
