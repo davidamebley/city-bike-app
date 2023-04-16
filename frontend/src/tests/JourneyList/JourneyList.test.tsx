@@ -78,4 +78,13 @@ describe('JourneyList', () => {
     await waitFor(() => expect(screen.queryAllByText(/Station A/i)).toHaveLength(1));
   });
 
+  it('handles search functionality', async () => {
+    const searchInput = await waitFor(() => screen.getByLabelText(/Search/i));
+    act(async () => {
+      await waitFor(() => userEvent.type(searchInput, 'Station A'));
+    });
+    await waitFor(() => expect(searchInput).toHaveValue('Station A'));
+    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
+  });
+
 });

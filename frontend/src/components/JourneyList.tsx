@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDebounce } from 'use-debounce';
 import {
   TableContainer,
   Table,
@@ -55,6 +56,7 @@ const fetchJourneys = async (
     setJourneys(data.journeys);
     setTotalCount(data.totalCount);
     setMaxDuration(data.maxDuration);
+    console.log(`Max Dur: ${data.maxDuration}, Max Dis: ${data.maxDistance}`)
     setMaxDistance(data.maxDistance);
   } catch (error) {
     console.error('Error fetching journeys:', error);
@@ -67,12 +69,15 @@ export const JourneyList: React.FC = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState('');
+  const [debouncedSearch] = useDebounce(search, 500); // 500ms debounce delay
   const [sortBy, setSortBy] = useState('departure_station_name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [maxDuration, setMaxDuration] = useState<number>(300);
   const [maxDistance, setMaxDistance] = useState<number>(100);
-  const [distanceRange, setDistanceRange] = useState<[number, number]>([0, 100]);
-  const [durationRange, setDurationRange] = useState<[number, number]>([0, 300]);
+  const [durationRange, setDurationRange] = 
+    useState<[number, number]>([0, maxDuration]);
+  const [distanceRange, setDistanceRange] = 
+    useState<[number, number]>([0, maxDistance]);
   const [loading, setLoading] = useState(true);
   const serverUrl = process.env.REACT_APP_SERVER_URL!;
 
@@ -94,7 +99,7 @@ export const JourneyList: React.FC = () => {
       setMaxDuration,
       setMaxDistance
       ).then(() => setLoading(false)); // Set loading to false when data is fetched
-  }, [page, limit, search, sortBy, sortOrder, serverUrl, distanceRange, durationRange]);
+  }, [page, limit, debouncedSearch, sortBy, sortOrder, serverUrl, distanceRange, durationRange]);
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement> | null, newPage: number
@@ -226,10 +231,10 @@ export const JourneyList: React.FC = () => {
                   journey.return_station_name}
                 </TableCell>
                 <TableCell className='fixedWidthCol2'>{
-                  (journey.covered_distance / 1000).toFixed(3)} km
+                  ((journey.covered_distance / 1000).toFixed(3))} km
                 </TableCell>
                 <TableCell className='fixedWidthCol2'>{
-                  (journey.duration / 60).toFixed(2)} mins
+                  ((journey.duration / 60).toFixed(2))} mins
                 </TableCell>
               </TableRow>
             ))}

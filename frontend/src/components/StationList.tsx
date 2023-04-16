@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDebounce } from 'use-debounce';
 import {
     TableContainer,
     Table,
@@ -56,6 +57,7 @@ export const StationList: React.FC = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState('');
+  const [debouncedSearch] = useDebounce(search, 500); // 500ms debounce delay
   const [loading, setLoading] = useState(true);
   const [selectedStation, setSelectedStation] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -69,7 +71,7 @@ export const StationList: React.FC = () => {
       await fetchStations(serverUrl, page, limit, search, setStations, setTotalCount);
       setLoading(false);
     })();
-  }, [page, limit, search, serverUrl]);
+  }, [page, limit, debouncedSearch, serverUrl]);
   
   
 

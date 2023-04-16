@@ -70,27 +70,28 @@ export const getJourneys = async (req: any, res: any) => {
         // Get maximum distance from cache
         let maxDistance = cache.get('maxDistance');
 
-        // If maxDuration is not in cache, fetch from database and set cache
-        if (maxDuration === undefined) {
-            const maxDurationResult = await Journey.aggregate([
-              { $match: filterQuery },
-              { $group: { _id: null, maxDuration: { $max: "$duration" } } },
-            ]);
-  
-            maxDuration = maxDurationResult.length > 0 ? maxDurationResult[0].maxDuration / 60 : 0;
+        // If maxDuration or maxDistance not in cache, fetch from database and set cache
+        if (maxDuration === undefined || maxDistance === undefined) {
+          const result = await Journey.aggregate([
+            { $group: { _id: null, 
+              maxDuration: { $max: "$duration" }, 
+              maxCoveredDistance: { $max: "$covered_distance" } } 
+            },
+          ]);
+        
+          if (result.length > 0) {
+            maxDuration = maxDuration === undefined ? (result[0].maxDuration / 60) : maxDuration;
+            maxDistance = maxDistance === undefined ? (result[0].maxCoveredDistance / 1000) : maxDistance;
+        
             cache.set('maxDuration', maxDuration);
+            cache.set('maxCoveredDistance', maxDistance);
+          } else {
+            maxDuration = maxDuration === undefined ? 0 : maxDuration;
+            maxDistance = maxDistance === undefined ? 0 : maxDistance;
+          }
         }
-
-        // If maxDistance is not in cache, fetch from database and set cache
-        if (maxDistance === undefined) {
-            const maxDistanceResult = await Journey.aggregate([
-              { $match: filterQuery },
-              { $group: { _id: null, maxDistance: { $max: "$covered_distance" } } },
-            ]);
-  
-            maxDistance = maxDistanceResult.length > 0 ? maxDistanceResult[0].maxDistance / 1000 : 0;
-            cache.set('maxDistance', maxDistance);
-        }
+        
+        
 
         // Check if totalCount is in cache
         let totalCount: number | undefined;
