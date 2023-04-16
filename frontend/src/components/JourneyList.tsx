@@ -140,34 +140,48 @@ export const JourneyList: React.FC = () => {
           <h3>Refine results:</h3>
           <div className="journey-filter-list">
             <div className="journey-filter-field">
-            <label id="distance-range-label" htmlFor="distance-slider">
-              Distance range (km):</label>
-              <Slider
-                id="distance-slider"
-                data-testid="distance-slider"
-                aria-labelledby="distance-range-label"
-                min={0}
-                max={parseInt(maxDistance.toFixed(0))}
-                step={1}
-                value={distanceRange}
-                onChange={(_, value) => setDistanceRange(value as [number, number])}
-                valueLabelDisplay="auto"
-              />
+            <label htmlFor="min-distance-input">Min Distance (km):</label>
+            <TextField
+              id="min-distance-input"
+              type="number"
+              inputProps={{ min: 0, max: maxDistance, step: 1 }}
+              value={distanceRange[0]}
+              onChange={(e) =>
+                setDistanceRange([Number(e.target.value), distanceRange[1]])
+              }
+            />
+            <label htmlFor="max-distance-input">Max Distance (km):</label>
+            <TextField
+              id="max-distance-input"
+              type="number"
+              inputProps={{ min: 0, max: maxDistance, step: 1 }}
+              value={distanceRange[1]}
+              onChange={(e) =>
+                setDistanceRange([distanceRange[0], Number(e.target.value)])
+              }
+            />
             </div>
             <div className="journey-filter-field">
-            <label id="duration-range-label" htmlFor="duration-slider">
-              Duration range (mins):</label>
-              <Slider
-                id="duration-slider"
-                data-testid="duration-slider"
-                aria-labelledby="duration-range-label"
-                min={0}
-                max={parseInt(maxDuration.toFixed(0))}
-                step={1}
-                value={durationRange}
-                onChange={(_, value) => setDurationRange(value as [number, number])}
-                valueLabelDisplay="auto"
-              />
+            <label htmlFor="min-duration-input">Min Duration (mins):</label>
+            <TextField
+              id="min-duration-input"
+              type="number"
+              inputProps={{ min: 0, max: maxDuration, step: 1 }}
+              value={durationRange[0]}
+              onChange={(e) =>
+                setDurationRange([Number(e.target.value), durationRange[1]])
+              }
+            />
+            <label htmlFor="max-duration-input">Max Duration (mins):</label>
+            <TextField
+              id="max-duration-input"
+              type="number"
+              inputProps={{ min: 0, max: maxDuration, step: 1 }}
+              value={durationRange[1]}
+              onChange={(e) =>
+                setDurationRange([durationRange[0], Number(e.target.value)])
+              }
+            />
             </div>
           </div>
         </div>
