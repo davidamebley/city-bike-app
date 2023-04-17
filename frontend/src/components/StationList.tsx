@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import {
     TableContainer,
@@ -25,6 +25,10 @@ interface Station {
   address: string;
 }
 
+const escapeRegExp = (string: string) => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
+}
+
 const fetchStations = async (
     serverUrl: string,
     page: number,
@@ -34,7 +38,7 @@ const fetchStations = async (
     setTotalCount: React.Dispatch<React.SetStateAction<number>>
   ) => {
     try {
-      const requestUrl = `${serverUrl}/api/stations?page=${page}&limit=${limit}&search=${search}`;
+      const requestUrl = `${serverUrl}/api/stations?page=${page}&limit=${limit}&search=${encodeURIComponent(escapeRegExp(search))}`;
       const response = await fetch(requestUrl);
 
       if (!response.ok) {

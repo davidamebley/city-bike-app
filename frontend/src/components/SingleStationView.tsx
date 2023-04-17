@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, CircularProgress, ListItemIcon } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
@@ -42,44 +42,53 @@ const fetchStation = async (
     setPopularReturnStations: React.Dispatch<React.SetStateAction<any[]>>,
     setPopularDepartureStations: React.Dispatch<React.SetStateAction<any[]>>,
   ) => {
-    const requestUrl = `${serverUrl}/api/stations/${id}`;
-    const response = await fetch(requestUrl);
-    const data = await response.json();
-    const station:Station = data.station;
-    const location:Location = {latitude:station.y, longitude:station.x} //y:lat; x:lng
+    try {
+      const requestUrl = `${serverUrl}/api/stations/${id}`;
+      const response = await fetch(requestUrl);
 
-    const fetchStationName = async (stationId: string) => {
-      const response = await fetch(`${serverUrl}/api/stations/${stationId}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
-      return data.station.name;
-    };
+      const station:Station = data.station;
+      const location:Location = {latitude:station.y, longitude:station.x} //y:lat; x:lng
 
-    const popularReturnStationsPromise = data.popularReturnStations.map(
-      async (returnStation: { _id: string; count: number }) => {
-        const name = await fetchStationName(returnStation._id);
-        return { ...returnStation, name };
-      }
-    );
-
-    const popularDepartureStationsPromise = data.popularDepartureStations.map(
-      async (departureStation: { _id: string; count: number }) => {
-        const name = await fetchStationName(departureStation._id);
-        return { ...departureStation, name };
-      }
-    );
-
-    const popularReturnStations = await Promise.all(popularReturnStationsPromise);
-    const popularDepartureStations = await Promise.all(popularDepartureStationsPromise);
-
-    setStation(station);
-    console.log(`Station name: ${station.name}`)
-    setLocation(location);
-    setJourneysStarting(data.journeysStarting);
-    setJourneysEnding(data.journeysEnding);
-    setAvgStartingDistance(data.averageStartingDistance);
-    setAvgEndingDistance(data.averageEndingDistance);
-    setPopularReturnStations(popularReturnStations);
-    setPopularDepartureStations(popularDepartureStations);
+      const fetchStationName = async (stationId: string) => {
+        const response = await fetch(`${serverUrl}/api/stations/${stationId}`);
+        const data = await response.json();
+        return data.station.name;
+      };
+  
+      const popularReturnStationsPromise = data.popularReturnStations.map(
+        async (returnStation: { _id: string; count: number }) => {
+          const name = await fetchStationName(returnStation._id);
+          return { ...returnStation, name };
+        }
+      );
+  
+      const popularDepartureStationsPromise = data.popularDepartureStations.map(
+        async (departureStation: { _id: string; count: number }) => {
+          const name = await fetchStationName(departureStation._id);
+          return { ...departureStation, name };
+        }
+      );
+  
+      const popularReturnStations = await Promise.all(popularReturnStationsPromise);
+      const popularDepartureStations = await Promise.all(popularDepartureStationsPromise);
+  
+      setStation(station);
+      setLocation(location);
+      setJourneysStarting(data.journeysStarting);
+      setJourneysEnding(data.journeysEnding);
+      setAvgStartingDistance(data.averageStartingDistance);
+      setAvgEndingDistance(data.averageEndingDistance);
+      setPopularReturnStations(popularReturnStations);
+      setPopularDepartureStations(popularDepartureStations);
+      
+    } catch (error) {
+      console.error('Error fetching station data:', error);
+    }
 };
 
 

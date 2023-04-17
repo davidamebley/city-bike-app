@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDebounce } from 'use-debounce';
 import {
   TableContainer,
@@ -12,8 +12,6 @@ import {
   TextField,
   TableSortLabel,
   CircularProgress,
-  Slider,
-  InputLabel
 } from '@mui/material';
 
 import '../styles/journeyList.css';
@@ -25,6 +23,10 @@ interface Journey {
   return_station_name: string;
   covered_distance: number;
   duration: number;
+}
+
+const escapeRegExp = (string: string) => {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
 
 const fetchJourneys = async (
@@ -39,12 +41,10 @@ const fetchJourneys = async (
   minDuration: number,
   maxDuration: number,
   setJourneys: React.Dispatch<React.SetStateAction<Journey[]>>,
-  setTotalCount: React.Dispatch<React.SetStateAction<number>>,
-  setMaxDuration: React.Dispatch<React.SetStateAction<number>>,
-  setMaxDistance: React.Dispatch<React.SetStateAction<number>>
+  setTotalCount: React.Dispatch<React.SetStateAction<number>>
 ) => {
   try {
-    const requestUrl = `${serverUrl}/api/journeys?page=${page}&limit=${limit}&search=${search}&sortBy=${sortBy}&sortOrder=${sortOrder}&minDistance=${minDistance}&maxDistance=${maxDistance}&minDuration=${minDuration}&maxDuration=${maxDuration}`;
+    const requestUrl = `${serverUrl}/api/journeys?page=${page}&limit=${limit}&search=${encodeURIComponent(escapeRegExp(search))}&sortBy=${sortBy}&sortOrder=${sortOrder}&minDistance=${minDistance}&maxDistance=${maxDistance}&minDuration=${minDuration}&maxDuration=${maxDuration}`;
     
     const response = await fetch(requestUrl);
 
@@ -55,8 +55,6 @@ const fetchJourneys = async (
     const data = await response.json();
     setJourneys(data.journeys);
     setTotalCount(data.totalCount);
-    setMaxDuration(data.maxDuration);
-    setMaxDistance(data.maxDistance);
   } catch (error) {
     console.error('Error fetching journeys:', error);
   }
@@ -68,15 +66,11 @@ export const JourneyList: React.FC = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState('');
-  const [debouncedSearch] = useDebounce(search, 500); // 500ms debounce delay
+  const [debouncedSearch] = useDebounce(search, 500);
   const [sortBy, setSortBy] = useState('departure_station_name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-  const [maxDuration, setMaxDuration] = useState<number>(300);
-  const [maxDistance, setMaxDistance] = useState<number>(100);
-  const [durationRange, setDurationRange] = 
-    useState<[number, number]>([0, maxDuration]);
-  const [distanceRange, setDistanceRange] = 
-    useState<[number, number]>([0, maxDistance]);
+  const [durationRange, setDurationRange] = useState<[number, number]>([0, 0]);
+  const [distanceRange, setDistanceRange] = useState<[number, number]>([0,0]);
   const [debouncedDistanceRange] = useDebounce(distanceRange, 500);
   const [debouncedDurationRange] = useDebounce(durationRange, 500);
   const [loading, setLoading] = useState(true);
@@ -96,9 +90,7 @@ export const JourneyList: React.FC = () => {
       debouncedDurationRange[0],
       debouncedDurationRange[1],
       setJourneys, 
-      setTotalCount,
-      setMaxDuration,
-      setMaxDistance
+      setTotalCount
       ).then(() => setLoading(false)); // Set loading to false when data is fetched
   }, [page, limit, debouncedSearch, sortBy, sortOrder, serverUrl, debouncedDistanceRange, debouncedDurationRange]);
 
@@ -133,25 +125,28 @@ export const JourneyList: React.FC = () => {
             placeholder="Search departure or return station"
             fullWidth
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setPage(1); // Reset page number when search criteria changes
+            }}
           />
         </div>
 
         <div className="container__journey-filter">
           <h3>Refine results:</h3>
           <div className="journey-filter-list">
-            {/* <div className="journey-filter-field"> */}
               <div className="journey-filter-field__group">
                 <label className='label__journey-filter' htmlFor="min-distance-input">Min Distance (km):</label>
                 <TextField
                   id="min-distance-input"
                   className='input__journey-filter'
                   type="number"
-                  inputProps={{ min: 0, max: maxDistance, step: 1 }}
+                  inputProps={{ min: 0, max: Infinity, step: 1 }}
                   value={distanceRange[0]}
-                  onChange={(e) =>
-                    setDistanceRange([Number(e.target.value), distanceRange[1]])
-                  }
+                  onChange={(e) => {
+                    setDistanceRange([Number(e.target.value), distanceRange[1]]);
+                    setPage(1); // Reset page number when distance filter changes
+                  }}
                 />
               </div>
               <div className="journey-filter-field__group">
@@ -160,26 +155,26 @@ export const JourneyList: React.FC = () => {
                   id="max-distance-input"
                   className='input__journey-filter'
                   type="number"
-                  inputProps={{ min: 0, max: maxDistance, step: 1 }}
+                  inputProps={{ min: 0, max: Infinity, step: 1 }}
                   value={distanceRange[1]}
-                  onChange={(e) =>
-                    setDistanceRange([distanceRange[0], Number(e.target.value)])
-                  }
+                  onChange={(e) => {
+                    setDistanceRange([distanceRange[0], Number(e.target.value)]);
+                    setPage(1); // Reset page number when distance filter changes
+                  }}
                 />
               </div>
-            {/* </div> */}
-            {/* <div className="journey-filter-field"> */}
               <div className="journey-filter-field__group">
                 <label className='label__journey-filter' htmlFor="min-duration-input">Min Duration (mins):</label>
                 <TextField
                   id="min-duration-input"
                   className='input__journey-filter'
                   type="number"
-                  inputProps={{ min: 0, max: maxDuration, step: 1 }}
+                  inputProps={{ min: 0, max: Infinity, step: 1 }}
                   value={durationRange[0]}
-                  onChange={(e) =>
-                    setDurationRange([Number(e.target.value), durationRange[1]])
-                  }
+                  onChange={(e) => {
+                    setDurationRange([Number(e.target.value), durationRange[1]]);
+                    setPage(1); // Reset page number when duration filter changes
+                  }}
                 />
               </div>
               <div className="journey-filter-field__group">
@@ -188,14 +183,14 @@ export const JourneyList: React.FC = () => {
                   id="max-duration-input"
                   className='input__journey-filter'
                   type="number"
-                  inputProps={{ min: 0, max: maxDuration, step: 1 }}
+                  inputProps={{ min: 0, max: Infinity, step: 1 }}
                   value={durationRange[1]}
-                  onChange={(e) =>
-                    setDurationRange([durationRange[0], Number(e.target.value)])
-                  }
+                  onChange={(e) => {
+                    setDurationRange([durationRange[0], Number(e.target.value)]);
+                    setPage(1); // Reset page number when duration filter changes
+                  }}
                 />
               </div>
-            {/* </div> */}
           </div>
         </div>
       </div>

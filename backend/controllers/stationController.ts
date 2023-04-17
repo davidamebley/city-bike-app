@@ -12,7 +12,7 @@ const cache = new NodeCache();
 export const getStations = async (req: any, res: any) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-    const skip = (page - 1) * limit;    // Specifies the number of documents to skip
+    const skip = (page - 1) * limit;
     const search = req.query.search || '';
 
     const searchQuery = search
@@ -34,11 +34,10 @@ export const getStations = async (req: any, res: any) => {
 
     try {
       const stations = await Station.find(searchQuery)
-        .sort({ _id: -1 })  // sort stations by _id in descending order
+        .sort({ _id: -1 })
         .skip(skip)
         .limit(limit)
         .lean();
-      // lean returns plain JavaScript objects instead of Mongoose documents, which can be faster to work with
     
       // Check if totalCount is in cache
       let totalCount: number | undefined;

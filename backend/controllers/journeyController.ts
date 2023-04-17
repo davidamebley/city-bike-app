@@ -10,7 +10,7 @@ const cache = new NodeCache();
 export const getJourneys = async (req: any, res: any) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
-    const skip = (page - 1) * limit;    // Specifies the number of documents to skip
+    const skip = (page - 1) * limit;
     const search = req.query.search || '';
     const sortBy = req.query.sortBy || 'departure_station_name';
     const sortOrder = req.query.sortOrder;
@@ -63,35 +63,6 @@ export const getJourneys = async (req: any, res: any) => {
             .limit(limit)
             .sort({ [sortBy]: sortOrder === 'asc' ? 1 : -1 })
             .lean();
-        // lean returns plain JavaScript objects instead of Mongoose documents, which can be faster to work with
-        
-        // Get maximum duration from cache
-        let maxDuration = cache.get('maxDuration');
-        // Get maximum distance from cache
-        let maxDistance = cache.get('maxDistance');
-
-        // If maxDuration or maxDistance not in cache, fetch from database and set cache
-        if (maxDuration === undefined || maxDistance === undefined) {
-          const result = await Journey.aggregate([
-            { $group: { _id: null, 
-              maxDuration: { $max: "$duration" }, 
-              maxCoveredDistance: { $max: "$covered_distance" } } 
-            },
-          ]);
-        
-          if (result.length > 0) {
-            maxDuration = maxDuration === undefined ? (result[0].maxDuration / 60) : maxDuration;
-            maxDistance = maxDistance === undefined ? (result[0].maxCoveredDistance / 1000) : maxDistance;
-        
-            cache.set('maxDuration', maxDuration);
-            cache.set('maxCoveredDistance', maxDistance);
-          } else {
-            maxDuration = maxDuration === undefined ? 0 : maxDuration;
-            maxDistance = maxDistance === undefined ? 0 : maxDistance;
-          }
-        }
-        
-        
 
         // Check if totalCount is in cache
         let totalCount: number | undefined;
