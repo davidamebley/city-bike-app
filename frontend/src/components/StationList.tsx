@@ -72,8 +72,6 @@ export const StationList: React.FC = () => {
       setLoading(false);
     })();
   }, [page, limit, debouncedSearch, serverUrl]);
-  
-  
 
   const handlePageChange = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number

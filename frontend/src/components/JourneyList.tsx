@@ -56,7 +56,6 @@ const fetchJourneys = async (
     setJourneys(data.journeys);
     setTotalCount(data.totalCount);
     setMaxDuration(data.maxDuration);
-    console.log(`Max Dur: ${data.maxDuration}, Max Dis: ${data.maxDistance}`)
     setMaxDistance(data.maxDistance);
   } catch (error) {
     console.error('Error fetching journeys:', error);

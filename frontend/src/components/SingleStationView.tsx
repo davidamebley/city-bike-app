@@ -72,6 +72,7 @@ const fetchStation = async (
     const popularDepartureStations = await Promise.all(popularDepartureStationsPromise);
 
     setStation(station);
+    console.log(`Station name: ${station.name}`)
     setLocation(location);
     setJourneysStarting(data.journeysStarting);
     setJourneysEnding(data.journeysEnding);

@@ -101,6 +101,15 @@ export const getStation = async (req: any, res: any) => {
     const popularReturnStations = await Journey.aggregate([
       { $match: { departure_station_id: stationId } },
       { $group: { _id: '$return_station_id', count: { $sum: 1 } } },
+      {
+        $lookup: {
+          from: 'stations',
+          localField: '_id',
+          foreignField: '_id',
+          as: 'station',
+        },
+      },
+      { $unwind: '$station' },
       { $sort: { count: -1 } },
       { $limit: 5 },
     ]);
@@ -109,6 +118,15 @@ export const getStation = async (req: any, res: any) => {
     const popularDepartureStations = await Journey.aggregate([
       { $match: { return_station_id: stationId } },
       { $group: { _id: '$departure_station_id', count: { $sum: 1 } } },
+      {
+        $lookup: {
+          from: 'stations',
+          localField: '_id',
+          foreignField: '_id',
+          as: 'station',
+        },
+      },
+      { $unwind: '$station' },
       { $sort: { count: -1 } },
       { $limit: 5 },
     ]);
