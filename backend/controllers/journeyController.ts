@@ -4,6 +4,11 @@ import Journey from "../models/journey";
 
 const cache = new NodeCache();
 
+// Generate cache key based on  filter values:
+const generateCacheKey = (filterQuery: any) => {
+  return JSON.stringify(filterQuery);
+};
+
 // @desc Get Journeys
 // @route GET /api/journeys
 // @access Public
@@ -64,20 +69,18 @@ export const getJourneys = async (req: any, res: any) => {
             .sort({ [sortBy]: sortOrder === 'asc' ? 1 : -1 })
             .lean();
 
+        // Generate cache key
+        const cacheKey = `journeys:${search || 'all'}:${minDistance}:${maxDistance}:${minDuration}:${maxDuration}`;
+
         // Check if totalCount is in cache
         let totalCount: number | undefined;
+
+        totalCount = cache.get(cacheKey);
       
-        // Search
-        if (search) {
-          totalCount = await Journey.countDocuments(searchQuery);
-        } else {
-          totalCount = cache.get('totalCount');
-          
-          // If totalCount is not in cache, fetch from database and set cache
-          if (totalCount === undefined) {
-            totalCount = await Journey.countDocuments();
-            cache.set('totalCount', totalCount);
-          }
+        // If totalCount is not in cache, fetch from database and set cache
+        if (totalCount === undefined) {
+          totalCount = await Journey.countDocuments(query);
+          cache.set(cacheKey, totalCount);
         }
       
         res.status(200).json({
@@ -86,8 +89,6 @@ export const getJourneys = async (req: any, res: any) => {
           totalPages: Math.ceil(totalCount / limit),
           totalCount,
           journeys,
-          maxDuration,
-          maxDistance
         });
       } catch (error) {
         res.status(500).json({ error: 'An error occurred while fetching journeys.' });
