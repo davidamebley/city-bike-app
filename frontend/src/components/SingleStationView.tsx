@@ -155,7 +155,7 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
                   Show Map
                 </p>
                 <div className="station-detail">
-                  <h4 className="station-detail-title">Number of journeys started at this station</h4>
+                  <h4 className="station-detail-title">Number of journeys started from this station</h4>
                   <p className="station-detail-value">{journeysStarting}</p>
                 </div>
                 <div className="station-detail">
@@ -171,7 +171,7 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
                   <p className="station-detail-value">{(avgEndingDistance / 1000).toFixed(3)} km</p>
                 </div>
                 <div className="station-detail">
-                  <h4 className="station-detail-title">Top 5 most popular return stations for journeys starting at this station</h4>
+                  <h4 className="station-detail-title">Top 5 most popular return stations for journeys starting from this station</h4>
                   <ol>
                     {popularReturnStations.map((returnStation: any, index: number) => (
                       <li key={index}>{`${returnStation.name} (${returnStation.count} times)`}</li>
