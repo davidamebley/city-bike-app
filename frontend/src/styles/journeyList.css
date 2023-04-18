@@ -25,6 +25,10 @@
   width: calc(100% - 1rem);
   margin-left: 1rem;
 }
+.journey-filter-field__group {
+  display: flex;
+  align-items: center;
+}
 
 .journey-filter-list {
   display: grid;
