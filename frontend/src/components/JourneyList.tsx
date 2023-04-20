@@ -139,6 +139,7 @@ export const JourneyList: React.FC = () => {
                 <label className='label__journey-filter' htmlFor="min-distance-input">Min Distance (km):</label>
                 <TextField
                   id="min-distance-input"
+                  data-testid="min-distance-input"
                   className='input__journey-filter'
                   type="number"
                   inputProps={{ min: 0, max: Infinity, step: 1 }}
@@ -153,6 +154,7 @@ export const JourneyList: React.FC = () => {
                 <label className='label__journey-filter' htmlFor="max-distance-input">Max Distance (km):</label>
                 <TextField
                   id="max-distance-input"
+                  data-testid="max-distance-input"
                   className='input__journey-filter'
                   type="number"
                   inputProps={{ min: 0, max: Infinity, step: 1 }}
@@ -167,6 +169,7 @@ export const JourneyList: React.FC = () => {
                 <label className='label__journey-filter' htmlFor="min-duration-input">Min Duration (mins):</label>
                 <TextField
                   id="min-duration-input"
+                  data-testid="min-duration-input"
                   className='input__journey-filter'
                   type="number"
                   inputProps={{ min: 0, max: Infinity, step: 1 }}
@@ -181,6 +184,7 @@ export const JourneyList: React.FC = () => {
                 <label className='label__journey-filter' htmlFor="max-duration-input">Max Duration (mins):</label>
                 <TextField
                   id="max-duration-input"
+                  data-testid="max-duration-input"
                   className='input__journey-filter'
                   type="number"
                   inputProps={{ min: 0, max: Infinity, step: 1 }}
@@ -196,8 +200,8 @@ export const JourneyList: React.FC = () => {
       </div>
 
       {loading ? (
-        <div className="spinner" >
-          <CircularProgress />
+        <div className="spinner">
+          <CircularProgress data-testid="spinner"/>
         </div>
 
       ) : (
@@ -264,6 +268,7 @@ export const JourneyList: React.FC = () => {
           <TableBody>
             <TableRow>
                 <TablePagination
+                    data-testid="table-pagination"
                     count={totalCount}
                     page={page - 1}
                     onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}
