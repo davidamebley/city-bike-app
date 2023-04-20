@@ -1,9 +1,8 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 
-import { JourneyList } from '../../components/JourneyList';
+import { JourneyList } from '../components/JourneyList';
 
 // Mock fetch function to return sample data
 const mockJourneys = [
