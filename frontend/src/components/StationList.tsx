@@ -194,6 +194,7 @@ export const StationList: React.FC = () => {
                           <TableBody>
                               <TableRow>
                                   <TablePagination
+                                      data-testid="table-pagination"
                                       count={totalCount}
                                       page={page - 1}
                                       onPageChange={(_, newPage) => handlePageChange(null, newPage + 1)}

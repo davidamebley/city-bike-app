@@ -130,7 +130,7 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
   }, [stationId, serverUrl]);
 
   return (
-    <div>
+    <div data-testid="single-station-view">
         {loading ? (
         <div className="spinner" >
           <CircularProgress />
