@@ -52,7 +52,7 @@ const fetchStation = async (
 
       const data = await response.json();
       const station:Station = data.station;
-      const location:Location = {latitude:station.y, longitude:station.x} //y:lat; x:lng
+      const location:Location = {latitude:data.station?.y, longitude:data.station?.x} //y:lat; x:lng
 
       const fetchStationName = async (stationId: string) => {
         const response = await fetch(`${serverUrl}/api/stations/${stationId}`);
@@ -60,14 +60,14 @@ const fetchStation = async (
         return data.station.name;
       };
   
-      const popularReturnStationsPromise = data.popularReturnStations.map(
+      const popularReturnStationsPromise = (data.popularReturnStations || []).map(
         async (returnStation: { _id: string; count: number }) => {
           const name = await fetchStationName(returnStation._id);
           return { ...returnStation, name };
         }
       );
   
-      const popularDepartureStationsPromise = data.popularDepartureStations.map(
+      const popularDepartureStationsPromise = (data.popularDepartureStations || []).map(
         async (departureStation: { _id: string; count: number }) => {
           const name = await fetchStationName(departureStation._id);
           return { ...departureStation, name };
@@ -188,7 +188,7 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
                 </div>
               </div>
               <div className="container__map">
-                <StationMap location={location} name={station.name} address={station.address} />
+                <StationMap location={location} name={station.name} address={station.address}/>
               </div>
               <MapModal isOpen={isMapModalOpen} onClose={toggleMapModal} station={station} location={location}/>
             </div>

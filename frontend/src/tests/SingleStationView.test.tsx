@@ -10,8 +10,6 @@ const mockStationData = {
     address: 'Address 1',
     x: 12.34,
     y: 56.78,
-    journeysStarting: 10,
-    journeysEnding: 8,
   },
   journeysStarting: 10,
   journeysEnding: 8,
