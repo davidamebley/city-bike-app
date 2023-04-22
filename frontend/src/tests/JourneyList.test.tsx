@@ -27,39 +27,14 @@ const mockJourneys = [
 
 beforeEach(async () => {
 
-  global.fetch = jest.fn(() =>
-    Promise.resolve({
-      json: () =>
-        Promise.resolve({
-          journeys: mockJourneys,
-          totalCount: 1,
-          maxDuration: 300,
-          maxDistance: 100,
-        }),
-      headers: new Headers(),
-      ok: true,
-      redirected: false,
-      status: 200,
-      statusText: "OK",
-      type: "basic",
-      url: "http://example.com",
-      body: null,
-      bodyUsed: false,
-      arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
-      blob: () => Promise.resolve(new Blob()),
-      formData: () => Promise.resolve(new FormData()),
-      text: () => Promise.resolve(""),
-      clone: function () {
-        return this;
-      },
-    })
-  );
-  // {
-  //   journeys: mockJourneys,
-  //   totalCount: 1,
-  //   maxDuration: 300,
-  //   maxDistance: 100,
-  // }
+  global.fetch = jest.fn().mockImplementation(() => Promise.resolve(
+    new Response(JSON.stringify({
+    journeys: mockJourneys,
+    totalCount: 1,
+    maxDuration: 300,
+    maxDistance: 100,
+  }))));
+  
   await act(async () => {
     await waitFor(() => render(<JourneyList />));
   });

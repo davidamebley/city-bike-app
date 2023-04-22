@@ -28,37 +28,13 @@ const mockStations = [
 
 beforeEach(async () => {
 
-    global.fetch = jest.fn(() =>
-      Promise.resolve({
-        json: () =>
-          Promise.resolve({
+    global.fetch = jest.fn().mockImplementation(() => Promise.resolve(
+        new Response(JSON.stringify({
             stations: mockStations,
             totalPages: 23,
             totalCount: 457,
-          }),
-        headers: new Headers(),
-        ok: true,
-        redirected: false,
-        status: 200,
-        statusText: "OK",
-        type: "basic",
-        url: "http://example.com",
-        body: null,
-        bodyUsed: false,
-        arrayBuffer: () => Promise.resolve(new ArrayBuffer(0)),
-        blob: () => Promise.resolve(new Blob()),
-        formData: () => Promise.resolve(new FormData()),
-        text: () => Promise.resolve(""),
-        clone: function () {
-          return this;
-        },
-      })
-    );
-    // {
-    //     stations: mockStations,
-    //     totalPages: 23,
-    //     totalCount: 457,
-    // }
+        }))));
+    
     await act(async () => {
       await waitFor(() => render(<StationList />));
     });
