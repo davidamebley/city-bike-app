@@ -54,7 +54,11 @@ beforeEach(async () => {
         },
       })
     );
-    
+    // {
+    //     stations: mockStations,
+    //     totalPages: 23,
+    //     totalCount: 457,
+    // }
     await act(async () => {
       await waitFor(() => render(<StationList />));
     });
