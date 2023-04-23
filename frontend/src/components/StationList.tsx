@@ -133,9 +133,10 @@ export const StationList: React.FC = () => {
                       fullWidth
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
+                      data-testid="search-input"
                   />
               </div>
-              <div className='add-station-button'>
+              <div data-testid="add-station-button" className='add-station-button'>
                 <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}>
                     Add Station
                 </Button>
@@ -159,7 +160,9 @@ export const StationList: React.FC = () => {
                   </div>
       
                   ) : (
-                  <TableContainer component={Paper}>
+                  <TableContainer 
+                      data-testid="stations-list"
+                      component={Paper}>
                       <Table>
                           <TableHead>
                               <TableRow>
@@ -175,9 +178,11 @@ export const StationList: React.FC = () => {
                               </TableRow>
                           </TableHead>
                           <TableBody>
-                              {stations.map((station, index:number) => (
-                              <TableRow className='station-list-item'
-                                  key={index}
+                              {stations.map((station) => (
+                              <TableRow
+                                  data-testid="station-item" 
+                                  className='station-list-item'
+                                  key={station._id}
                                   onClick={() => setSelectedStation(station._id)}>
                                   <TableCell 
                                       className='fixedWidthCol1'>{station._id}

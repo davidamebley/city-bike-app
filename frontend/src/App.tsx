@@ -13,7 +13,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="App" data-testid="main-page">
       <AppBar position="static" color="default" sx={{ backgroundColor: 'white' }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Box>
@@ -27,8 +27,8 @@ function App() {
             </Typography>
           </Box>
           <Tabs value={activeTab} onChange={handleChange} textColor="primary">
-            <Tab label="Journeys" />
-            <Tab label="Stations" />
+            <Tab data-testid="journeys-list-button" label="Journeys" />
+            <Tab data-testid="stations-list-button" label="Stations" />
           </Tabs>
         </Toolbar>
       </AppBar>

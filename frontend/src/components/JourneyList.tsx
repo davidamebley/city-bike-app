@@ -129,6 +129,7 @@ export const JourneyList: React.FC = () => {
               setSearch(e.target.value);
               setPage(1); // Reset page number when search criteria changes
             }}
+            data-testid="search-input"
           />
         </div>
 
@@ -205,7 +206,9 @@ export const JourneyList: React.FC = () => {
         </div>
 
       ) : (
-        <TableContainer component={Paper}>
+        <TableContainer 
+        data-testid="journeys-list"
+        component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
@@ -249,7 +252,10 @@ export const JourneyList: React.FC = () => {
           </TableHead>
           <TableBody>
             {journeys.map((journey, index) => (
-              <TableRow className='journey-list-item' key={index}>
+              <TableRow 
+                data-testid="journey-item" 
+                className='journey-list-item' 
+                key={index}>
                 <TableCell className='fixedWidthCol1'>{
                   journey.departure_station_name}
                 </TableCell>

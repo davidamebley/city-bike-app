@@ -134,6 +134,5 @@ describe('JourneyList Component', () => {
     // Check the number of fetch calls
     await waitFor(() => expect(fetch).toHaveBeenCalledTimes(2));
   });
-    
 
 });

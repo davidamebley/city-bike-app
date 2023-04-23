@@ -22,7 +22,8 @@ export const AddStationDialog: React.FC<AddStationDialogProps> = ({ open, onClos
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog 
+      data-testid="add-station-dialog" open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>Add New Station</DialogTitle>
       <DialogContent>
         <TextField
@@ -32,6 +33,7 @@ export const AddStationDialog: React.FC<AddStationDialogProps> = ({ open, onClos
           fullWidth
           value={name}
           onChange={(e) => setName(e.target.value)}
+          data-testid="station-name-input"
         />
         <TextField
           margin="dense"
@@ -39,6 +41,7 @@ export const AddStationDialog: React.FC<AddStationDialogProps> = ({ open, onClos
           fullWidth
           value={address}
           onChange={(e) => setAddress(e.target.value)}
+          data-testid="station-address-input"
         />
         <TextField
           margin="dense"
@@ -46,6 +49,7 @@ export const AddStationDialog: React.FC<AddStationDialogProps> = ({ open, onClos
           fullWidth
           value={latitude}
           onChange={(e) => setLatitude(e.target.value)}
+          data-testid="station-latitude-input"
         />
         <TextField
           margin="dense"
@@ -53,6 +57,7 @@ export const AddStationDialog: React.FC<AddStationDialogProps> = ({ open, onClos
           fullWidth
           value={longitude}
           onChange={(e) => setLongitude(e.target.value)}
+          data-testid="station-longitude-input"
         />
       </DialogContent>
       <DialogActions>
