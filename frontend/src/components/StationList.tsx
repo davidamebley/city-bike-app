@@ -138,7 +138,11 @@ export const StationList: React.FC = () => {
                   />
               </div>
               <div data-testid="add-station-button" className='add-station-button'>
-                <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}>
+                <Button 
+                  variant="contained" 
+                  color="primary" 
+                  onClick={() => setModalOpen(true)}
+                  disabled={loading}>
                     Add Station
                 </Button>
               </div>
