@@ -130,6 +130,7 @@ export const JourneyList: React.FC = () => {
               setPage(1); // Reset page number when search criteria changes
             }}
             data-testid="search-input"
+            disabled={loading}
           />
         </div>
 
@@ -149,6 +150,7 @@ export const JourneyList: React.FC = () => {
                     setDistanceRange([Number(e.target.value), distanceRange[1]]);
                     setPage(1); // Reset page number when distance filter changes
                   }}
+                  disabled={loading}
                 />
               </div>
               <div className="journey-filter-field__group">
@@ -164,6 +166,7 @@ export const JourneyList: React.FC = () => {
                     setDistanceRange([distanceRange[0], Number(e.target.value)]);
                     setPage(1); // Reset page number when distance filter changes
                   }}
+                  disabled={loading}
                 />
               </div>
               <div className="journey-filter-field__group">
@@ -179,6 +182,7 @@ export const JourneyList: React.FC = () => {
                     setDurationRange([Number(e.target.value), durationRange[1]]);
                     setPage(1); // Reset page number when duration filter changes
                   }}
+                  disabled={loading}
                 />
               </div>
               <div className="journey-filter-field__group">
@@ -194,6 +198,7 @@ export const JourneyList: React.FC = () => {
                     setDurationRange([durationRange[0], Number(e.target.value)]);
                     setPage(1); // Reset page number when duration filter changes
                   }}
+                  disabled={loading}
                 />
               </div>
           </div>

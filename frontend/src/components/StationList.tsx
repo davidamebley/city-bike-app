@@ -134,6 +134,7 @@ export const StationList: React.FC = () => {
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                       data-testid="search-input"
+                      disabled={loading}
                   />
               </div>
               <div data-testid="add-station-button" className='add-station-button'>
