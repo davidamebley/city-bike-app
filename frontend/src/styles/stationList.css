@@ -58,15 +58,14 @@
   z-index: 1;
 }
 
-.spinner {
-  position: fixed;
+.table-spinner-wrapper {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
 }
 
 @media screen and (max-width: 768px) {

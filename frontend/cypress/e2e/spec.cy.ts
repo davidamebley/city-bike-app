@@ -1,9 +1,5 @@
 describe('Bike Station App', () => {
   beforeEach(() => {
-    // cy.intercept('GET', '**/api/stations?*', {
-    //   fixture: 'stations.json',
-    // }).as('getStations');
-    
     cy.visit('http://localhost:3000');
   });
 

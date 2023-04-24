@@ -160,6 +160,7 @@ export const StationList: React.FC = () => {
                   </div>
       
                   ) : (
+                <div style={{ position: 'relative', width:'100%'}}>
                   <TableContainer 
                       data-testid="stations-list"
                       component={Paper}>
@@ -210,8 +211,8 @@ export const StationList: React.FC = () => {
                           </TableBody>
                       </Table>
                   </TableContainer>
-          )
-      }
+                </div>
+          )}
           </div>
         )
       }

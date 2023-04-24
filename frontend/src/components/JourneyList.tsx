@@ -201,11 +201,12 @@ export const JourneyList: React.FC = () => {
       </div>
 
       {loading ? (
-        <div className="spinner">
+        <div className="table-spinner-wrapper">
           <CircularProgress data-testid="spinner"/>
         </div>
 
       ) : (
+      <div style={{ position: 'relative', width:'100%'}}>
         <TableContainer 
         data-testid="journeys-list"
         component={Paper}>
@@ -285,6 +286,7 @@ export const JourneyList: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      </div>
       )}
     </div>
   );
