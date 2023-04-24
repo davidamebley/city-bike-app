@@ -30,7 +30,7 @@ beforeEach(async () => {
   global.fetch = jest.fn().mockImplementation(() => Promise.resolve(
     new Response(JSON.stringify({
     journeys: mockJourneys,
-    totalCount: 1,
+    totalCount: 2,
     maxDuration: 300,
     maxDistance: 100,
   }))));

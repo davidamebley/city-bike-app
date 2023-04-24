@@ -1,0 +1,115 @@
+{
+    "stations": [
+      {
+        "_id": "1",
+        "name": "Station A",
+        "address": "Test Address 123",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      },
+      {
+        "_id": "2",
+        "name": "Station B",
+        "address": "Another Test Address 456",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      },
+      {
+        "_id": "3",
+        "name": "Station C",
+        "address": "Another Test Address 456",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      },
+      {
+        "_id": "4",
+        "name": "Station D",
+        "address": "Another Test Address 456",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      },
+      {
+        "_id": "5",
+        "name": "Station E",
+        "address": "Another Test Address 456",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      },
+      {
+        "_id": "6",
+        "name": "Station F",
+        "address": "Another Test Address 456",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      },
+      {
+        "_id": "7",
+        "name": "Station G",
+        "address": "Another Test Address 456",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      },
+      {
+        "_id": "8",
+        "name": "Station H",
+        "address": "Another Test Address 456",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      },
+      {
+        "_id": "9",
+        "name": "Station I",
+        "address": "Another Test Address 456",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      },
+      {
+        "_id": "10",
+        "name": "Station J",
+        "address": "Another Test Address 456",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      },
+      {
+        "_id": "11",
+        "name": "Station K",
+        "address": "Another Test Address 456",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      },
+      {
+        "_id": "12",
+        "name": "Station L",
+        "address": "Another Test Address 456",
+        "x": 24.835356,
+        "y": 60.209017,
+        "journeysStarting": 5,
+        "journeysEnding": 12
+      }
+    ],
+    "totalCount": 12,
+    "totalPages": 2
+  }
+  

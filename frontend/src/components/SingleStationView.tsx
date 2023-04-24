@@ -130,17 +130,19 @@ export const SingleStationView: React.FC<SingleStationViewProps> = (
   }, [stationId, serverUrl]);
 
   return (
-    <div data-testid="single-station-view">
+    <div>
         {loading ? (
         <div className="spinner" >
           <CircularProgress />
         </div>
       ) : (
         station && (
-            <div className='container__single-station'>
+            <div
+              data-testid="single-station-view"
+              className='container__single-station'>
               <div className="container__station-details">
                 <div className="header__station">
-                  <Button className='button__back' 
+                  <Button data-testid="back-button" className='button__back' 
                       onClick={onBack}> &larr; Back to Stations
                   </Button>
                   <h3 className='station-name'>{station.name}</h3>

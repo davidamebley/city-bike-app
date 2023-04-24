@@ -1,0 +1,105 @@
+{
+    "journeys": [
+        {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station A",
+            "return_station_name": "Station B",
+            "covered_distance": 100,
+            "duration": 600
+          },
+          {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station C",
+            "return_station_name": "Station D",
+            "covered_distance": 150,
+            "duration": 900
+          },
+          {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station C",
+            "return_station_name": "Station D",
+            "covered_distance": 150,
+            "duration": 900
+          },
+          {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station C",
+            "return_station_name": "Station D",
+            "covered_distance": 150,
+            "duration": 900
+          },
+          {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station C",
+            "return_station_name": "Station D",
+            "covered_distance": 150,
+            "duration": 900
+          },
+          {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station C",
+            "return_station_name": "Station D",
+            "covered_distance": 150,
+            "duration": 900
+          },
+          {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station C",
+            "return_station_name": "Station D",
+            "covered_distance": 150,
+            "duration": 900
+          },
+          {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station C",
+            "return_station_name": "Station D",
+            "covered_distance": 150,
+            "duration": 900
+          },
+          {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station C",
+            "return_station_name": "Station D",
+            "covered_distance": 150,
+            "duration": 900
+          },
+          {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station C",
+            "return_station_name": "Station D",
+            "covered_distance": 150,
+            "duration": 900
+          },
+          {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station C",
+            "return_station_name": "Station D",
+            "covered_distance": 150,
+            "duration": 900
+          },
+          {
+            "departure": "2023-01-01T00:00:00Z",
+            "return": "2023-01-01T00:00:00Z",
+            "departure_station_name": "Station C",
+            "return_station_name": "Station D",
+            "covered_distance": 150,
+            "duration": 900
+          }
+    ],
+    "totalCount": 12,
+    "totalPages": 2,
+    "maxDuration": 900,
+    "maxDistance": 150
+  }
+  
