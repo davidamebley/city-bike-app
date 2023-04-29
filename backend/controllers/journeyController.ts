@@ -5,6 +5,22 @@ import Journey from "../models/journey";
 
 const cache = new NodeCache();
 
+// Parse and return query params
+const parseQueryParams = (req: Request) => {
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 10;
+  const skip = (page - 1) * limit;
+  const search = req.query.search || '';
+  const sortBy = req.query.sortBy || 'departure_station_name';
+  const sortOrder = req.query.sortOrder || 'asc';
+  const minDistance = parseFloat(req.query.minDistance as string) * 1000 || 0;
+  const maxDistance = parseFloat(req.query.maxDistance as string) * 1000 || undefined;
+  const minDuration = parseFloat(req.query.minDuration as string) * 60 || 0;
+  const maxDuration = parseFloat(req.query.maxDuration as string) * 60 || undefined;
+
+  return { page, limit, skip, search, sortBy, sortOrder, minDistance, maxDistance, minDuration, maxDuration };
+};
+
 // @desc Get Journeys
 // @route GET /api/journeys
 // @access Public
