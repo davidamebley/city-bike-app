@@ -5,11 +5,6 @@ import Journey from "../models/journey";
 
 const cache = new NodeCache();
 
-// Generate cache key based on  filter values:
-const generateCacheKey = (filterQuery: any) => {
-  return JSON.stringify(filterQuery);
-};
-
 // @desc Get Journeys
 // @route GET /api/journeys
 // @access Public
