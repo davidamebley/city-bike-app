@@ -21,6 +21,11 @@ const parseQueryParams = (req: Request) => {
   return { page, limit, skip, search, sortBy, sortOrder, minDistance, maxDistance, minDuration, maxDuration };
 };
 
+const validateRequiredFields = (fields: any): boolean => {
+  const requiredFields = ['departure', 'return', 'departure_station_id', 'departure_station_name', 'return_station_id', 'return_station_name', 'covered_distance', 'duration'];
+  return requiredFields.every(field => fields[field]);
+};
+
 // @desc Get Journeys
 // @route GET /api/journeys
 // @access Public
@@ -101,12 +106,17 @@ export const getJourneys = async (req: Request, res: Response) => {
 // @desc Add a new Journey
 // @route POST /api/journeys
 // @access Public
-export const addJourney = async (req: any, res: any) => {
+export const addJourney = async (req: Request, res: Response) => {
     const { departure, return: returnDate, departure_station_id, departure_station_name, return_station_id, return_station_name, covered_distance, duration } = req.body;
   
-    if (!departure || !returnDate || !departure_station_id || !departure_station_name || !return_station_id || !return_station_name || !covered_distance || !duration) {
+    /* if (!departure || !returnDate || !departure_station_id || !departure_station_name || !return_station_id || !return_station_name || !covered_distance || !duration) {
         res.status(400).json({ error: 'Please provide all required fields' });
         return;
+    } */
+
+    if (!validateRequiredFields(req.body)) {
+      res.status(400).json({ error: 'Please provide all required fields' });
+      return;
     }
   
     try {
