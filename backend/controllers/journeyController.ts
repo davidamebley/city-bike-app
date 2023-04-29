@@ -10,11 +10,6 @@ const generateCacheKey = (filterQuery: any) => {
   return JSON.stringify(filterQuery);
 };
 
-const validateRequiredFields = (fields: any): boolean => {
-  const requiredFields = ['departure', 'return', 'departure_station_id', 'departure_station_name', 'return_station_id', 'return_station_name', 'covered_distance', 'duration'];
-  return requiredFields.every(field => fields[field]);
-};
-
 // @desc Get Journeys
 // @route GET /api/journeys
 // @access Public
