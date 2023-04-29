@@ -10,8 +10,8 @@ const parseQueryParams = (req: Request) => {
   const page = parseInt(req.query.page as string) || 1;
   const limit = parseInt(req.query.limit as string) || 10;
   const skip = (page - 1) * limit;
-  const search = req.query.search || '';
-  const sortBy = req.query.sortBy || 'departure_station_name';
+  const search = req.query.search as string || '';
+  const sortBy = req.query.sortBy as string || 'departure_station_name';
   const sortOrder = req.query.sortOrder || 'asc';
   const minDistance = parseFloat(req.query.minDistance as string) * 1000 || 0;
   const maxDistance = parseFloat(req.query.maxDistance as string) * 1000 || undefined;
@@ -24,20 +24,10 @@ const parseQueryParams = (req: Request) => {
 // @desc Get Journeys
 // @route GET /api/journeys
 // @access Public
-export const getJourneys = async (req: any, res: any) => {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
-    const skip = (page - 1) * limit;
-    const search = req.query.search || '';
-    const sortBy = req.query.sortBy || 'departure_station_name';
-    const sortOrder = req.query.sortOrder || 'asc';
+export const getJourneys = async (req: Request, res: Response) => {
+    const { page, limit, skip, search, sortBy, sortOrder, minDistance, maxDistance, minDuration, maxDuration } = parseQueryParams(req);
 
     // Filtering
-    const minDistance = parseFloat(req.query.minDistance) * 1000 || 0;
-    const maxDistance = parseFloat(req.query.maxDistance) * 1000 || Infinity;
-    const minDuration = parseFloat(req.query.minDuration) * 60 || 0;
-    const maxDuration = parseFloat(req.query.maxDuration) * 60 || Infinity;
-
     const filterQuery = {
         $and: [
           {
