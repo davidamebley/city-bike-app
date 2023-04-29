@@ -134,7 +134,6 @@ export const StationList: React.FC = () => {
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                       data-testid="search-input"
-                      disabled={loading}
                   />
               </div>
               <div data-testid="add-station-button" className='add-station-button'>
@@ -165,7 +164,6 @@ export const StationList: React.FC = () => {
                   </div>
       
                   ) : (
-                <div style={{ position: 'relative', width:'100%'}}>
                   <TableContainer 
                       data-testid="stations-list"
                       component={Paper}>
@@ -216,7 +214,6 @@ export const StationList: React.FC = () => {
                           </TableBody>
                       </Table>
                   </TableContainer>
-                </div>
           )}
           </div>
         )

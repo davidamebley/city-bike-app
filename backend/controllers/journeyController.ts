@@ -1,3 +1,4 @@
+import { Request, Response } from 'express';
 import NodeCache from 'node-cache';
 
 import Journey from "../models/journey";
@@ -9,6 +10,11 @@ const generateCacheKey = (filterQuery: any) => {
   return JSON.stringify(filterQuery);
 };
 
+const validateRequiredFields = (fields: any): boolean => {
+  const requiredFields = ['departure', 'return', 'departure_station_id', 'departure_station_name', 'return_station_id', 'return_station_name', 'covered_distance', 'duration'];
+  return requiredFields.every(field => fields[field]);
+};
+
 // @desc Get Journeys
 // @route GET /api/journeys
 // @access Public
@@ -18,7 +24,7 @@ export const getJourneys = async (req: any, res: any) => {
     const skip = (page - 1) * limit;
     const search = req.query.search || '';
     const sortBy = req.query.sortBy || 'departure_station_name';
-    const sortOrder = req.query.sortOrder;
+    const sortOrder = req.query.sortOrder || 'asc';
 
     // Filtering
     const minDistance = parseFloat(req.query.minDistance) * 1000 || 0;

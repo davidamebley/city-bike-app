@@ -121,6 +121,7 @@ export const JourneyList: React.FC = () => {
       <div className="container__journey-action-area">
         <div className='journey-search-field'>
           <TextField
+            key="search-input"
             label="Search"
             placeholder="Search departure or return station"
             fullWidth
@@ -130,7 +131,6 @@ export const JourneyList: React.FC = () => {
               setPage(1); // Reset page number when search criteria changes
             }}
             data-testid="search-input"
-            disabled={loading}
           />
         </div>
 
@@ -150,7 +150,6 @@ export const JourneyList: React.FC = () => {
                     setDistanceRange([Number(e.target.value), distanceRange[1]]);
                     setPage(1); // Reset page number when distance filter changes
                   }}
-                  disabled={loading}
                 />
               </div>
               <div className="journey-filter-field__group">
@@ -166,7 +165,6 @@ export const JourneyList: React.FC = () => {
                     setDistanceRange([distanceRange[0], Number(e.target.value)]);
                     setPage(1); // Reset page number when distance filter changes
                   }}
-                  disabled={loading}
                 />
               </div>
               <div className="journey-filter-field__group">
@@ -182,7 +180,6 @@ export const JourneyList: React.FC = () => {
                     setDurationRange([Number(e.target.value), durationRange[1]]);
                     setPage(1); // Reset page number when duration filter changes
                   }}
-                  disabled={loading}
                 />
               </div>
               <div className="journey-filter-field__group">
@@ -198,7 +195,6 @@ export const JourneyList: React.FC = () => {
                     setDurationRange([durationRange[0], Number(e.target.value)]);
                     setPage(1); // Reset page number when duration filter changes
                   }}
-                  disabled={loading}
                 />
               </div>
           </div>
@@ -206,12 +202,11 @@ export const JourneyList: React.FC = () => {
       </div>
 
       {loading ? (
-        <div className="table-spinner-wrapper">
+        <div className="spinner">
           <CircularProgress data-testid="spinner"/>
         </div>
 
       ) : (
-      <div style={{ position: 'relative', width:'100%'}}>
         <TableContainer 
         data-testid="journeys-list"
         component={Paper}>
@@ -290,8 +285,7 @@ export const JourneyList: React.FC = () => {
             </TableRow>
           </TableBody>
         </Table>
-      </TableContainer>
-      </div>
+        </TableContainer>
       )}
     </div>
   );

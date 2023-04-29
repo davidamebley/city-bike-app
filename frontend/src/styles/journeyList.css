@@ -80,14 +80,15 @@
   background-color: rgba(230, 230, 230, 1);
 }
 
-.table-spinner-wrapper {
-  position: absolute;
+.spinner {
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100px;
 }
 
 @media screen and (max-width: 768px) {
