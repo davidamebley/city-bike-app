@@ -14,9 +14,9 @@ const parseQueryParams = (req: Request) => {
   const sortBy = req.query.sortBy as string || 'departure_station_name';
   const sortOrder = req.query.sortOrder || 'asc';
   const minDistance = parseFloat(req.query.minDistance as string) * 1000 || 0;
-  const maxDistance = parseFloat(req.query.maxDistance as string) * 1000 || undefined;
+  const maxDistance = parseFloat(req.query.maxDistance as string) * 1000 || Infinity;
   const minDuration = parseFloat(req.query.minDuration as string) * 60 || 0;
-  const maxDuration = parseFloat(req.query.maxDuration as string) * 60 || undefined;
+  const maxDuration = parseFloat(req.query.maxDuration as string) * 60 || Infinity;
 
   return { page, limit, skip, search, sortBy, sortOrder, minDistance, maxDistance, minDuration, maxDuration };
 };
@@ -108,11 +108,6 @@ export const getJourneys = async (req: Request, res: Response) => {
 // @access Public
 export const addJourney = async (req: Request, res: Response) => {
     const { departure, return: returnDate, departure_station_id, departure_station_name, return_station_id, return_station_name, covered_distance, duration } = req.body;
-  
-    /* if (!departure || !returnDate || !departure_station_id || !departure_station_name || !return_station_id || !return_station_name || !covered_distance || !duration) {
-        res.status(400).json({ error: 'Please provide all required fields' });
-        return;
-    } */
 
     if (!validateRequiredFields(req.body)) {
       res.status(400).json({ error: 'Please provide all required fields' });
@@ -135,5 +130,4 @@ export const addJourney = async (req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({ error: 'An error occurred while adding a new journey.' });
     }
-  };
-  
+};
