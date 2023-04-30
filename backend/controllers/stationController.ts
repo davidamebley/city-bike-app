@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import NodeCache from 'node-cache';
 
 import Journey from "../models/journey";
@@ -10,8 +9,8 @@ const cache = new NodeCache();
 // @route GET /api/stations
 // @access Public
 export const getStations = async (req: any, res: any) => {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 10;
     const skip = (page - 1) * limit;
     const search = req.query.search || '';
 
