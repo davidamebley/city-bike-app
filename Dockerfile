@@ -21,4 +21,4 @@ COPY --from=backend-build /backend ./backend
 COPY package*.json ./
 RUN npm install --production
 EXPOSE 5000
-CMD ["node", "backend/Server.ts"]
+CMD ["node", "backend/server.ts"]
