@@ -1,11 +1,11 @@
 require('dotenv').config()
-import express from 'express';
-import cors from 'cors';
-import path from 'path';
+const express = require('express');
+const cors = require ('cors');
+const path = require ('path');
 
-import { connectDB } from './config/db'
-import journeyRoutes from './routes/journeyRoutes';
-import stationRoutes from './routes/stationRoutes';
+const { connectDB } = require ('./config/db');
+const journeyRoutes = require ('./routes/journeyRoutes');
+const stationRoutes = require ('./routes/stationRoutes');
 
 // Connect to MongoDB
 connectDB();
