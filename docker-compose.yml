@@ -2,11 +2,16 @@ version: '3'
 
 services:
   app:
-    build: .
+    image: helsinki-city-bike
     ports:
       - 5000:5000
     environment:
-      MONGO_DB: "mongodb://mongodb:27017/helsinki-city-bike-db"
+      - MONGO_URI=mongodb://mongo:27017/helsinki-city-bike-db
+      - REACT_APP_SERVER_URL=http://localhost:5000
+      - PORT=5000
+      - NODE_ENV=production
+    restart: always
+    container_name: helsinki-city-bike-app
     depends_on:
       - mongodb
 
