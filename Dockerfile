@@ -9,8 +9,6 @@ RUN npm run build
 # Build backend
 FROM node as backend-build
 WORKDIR /backend
-COPY backend/package*.json ./
-RUN npm install
 COPY backend/ ./
 
 # Final image
@@ -21,4 +19,4 @@ COPY --from=backend-build /backend ./backend
 COPY package*.json ./
 RUN npm install --production
 EXPOSE 5000
-CMD ["node", "backend/server.ts"]
+CMD ["npm", "run", "start"]
