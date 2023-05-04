@@ -1,7 +1,6 @@
-// journeyRoutes.ts
-import express from 'express';
+const express = require('express');
 
-import {getJourneys}  from '../controllers/journeyController';
+const {getJourneys}  = require('../controllers/journeyController');
 
 const router = express.Router();
 
