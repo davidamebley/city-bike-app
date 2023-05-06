@@ -14,7 +14,7 @@ const app = express();
 
 app.use(cors());
 // Enable CORS for your server
-app.use((req, res, next) => {
+app.use((req:any, res:any, next:any) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
@@ -32,13 +32,13 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../frontend/build')));
 
     // Load the index html file that is in our static build folder when all other routes callded
-    app.get('*', (req, res) =>
+    app.get('*', (req:any, res:any) =>
         res.sendFile(
             path.resolve(__dirname, '../frontend', 'build', 'index.html')
         )
     );
 }else{
-    app.get('/', (req, res) => res.send('Please set to a production environment first'));
+    app.get('/', (req:any, res:any) => res.send('Please set to a production environment first'));
 }
 // ------ End of Serve Our Frontend for Deployment
 
