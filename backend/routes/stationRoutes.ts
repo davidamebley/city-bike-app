@@ -1,6 +1,5 @@
-// stationRoutes.ts
-import express from 'express';
-import { addStation, getStation, getStations } from '../controllers/stationController';
+const express = require('express');
+const { addStation, getStation, getStations } = require('../controllers/stationController');
 
 const router = express.Router();
 
