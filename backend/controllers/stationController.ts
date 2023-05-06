@@ -57,7 +57,7 @@ export const getStations = async (req: any, res: any) => {
       res.status(200).json({
         page,
         limit,
-        totalPages: Math.ceil(totalCount / limit),
+        totalPages: Math.ceil(totalCount! / limit),
         totalCount,
         stations
       });
