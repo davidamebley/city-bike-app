@@ -16,7 +16,7 @@ RUN npm run build
 FROM node
 WORKDIR /app
 COPY --from=frontend-build /frontend/build ./frontend/build
-COPY --from=backend-build /backend ./backend
+COPY --from=backend-build /backend/dist ./backend
 COPY package*.json ./
 RUN npm install --production
 EXPOSE 5000
