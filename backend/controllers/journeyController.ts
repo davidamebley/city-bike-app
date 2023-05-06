@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import NodeCache from 'node-cache';
+const NodeCache = require('node-cache');
 
-import Journey from "../models/journey";
+const Journey = require("../models/journey");
 
 const cache = new NodeCache();
 
@@ -93,7 +93,7 @@ export const getJourneys = async (req: Request, res: Response) => {
         res.status(200).json({
           page,
           limit,
-          totalPages: Math.ceil(totalCount / limit),
+          totalPages: Math.ceil(totalCount! / limit),
           totalCount,
           journeys,
         });
