@@ -10,6 +10,7 @@ RUN npm run build
 FROM node as backend-build
 WORKDIR /backend
 COPY backend/ ./
+RUN npm run build
 
 # Final image
 FROM node
