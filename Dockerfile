@@ -8,8 +8,10 @@ RUN npm run build
 
 # Build backend
 FROM node as backend-build
-WORKDIR /backend
-COPY backend/ ./
+COPY package*.json ./
+COPY tsconfig.json ./
+COPY backend/ ./backend
+RUN npm install
 RUN npm run build
 
 # Final image
