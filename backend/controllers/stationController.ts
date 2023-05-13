@@ -1,7 +1,7 @@
-const NodeCache = require('node-cache');
+import NodeCache from 'node-cache';
 
-const Journey = require("../models/journey");
-const Station = require("../models/station");
+import Journey from "../models/journey";
+import Station from "../models/station";
 
 const cache = new NodeCache();
 

@@ -1,9 +1,7 @@
-const express = require('express');
-
-const {getJourneys}  = require('../controllers/journeyController');
-
+import express from 'express';
 const router = express.Router();
+import { getJourneys } from '../controllers/journeyController';
 
-router.route('/').get(getJourneys)
+router.route('/').get(getJourneys);
 
 export default router;

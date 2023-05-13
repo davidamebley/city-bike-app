@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-const NodeCache = require('node-cache');
+import NodeCache from 'node-cache';
 
-const Journey = require("../models/journey");
+import Journey from "../models/journey";
 
 const cache = new NodeCache();
 
