@@ -6,6 +6,8 @@ export const connectDB = async () => {
     try {
         const MONGO_URI = await getMongoConnectionString();
 
+        console.log(`MONGO_URI_: ${MONGO_URI}`)
+
         const dbConnect = await mongoose.connect(MONGO_URI, {
             serverSelectionTimeoutMS: 30000
         });
