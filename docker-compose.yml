@@ -6,8 +6,10 @@ services:
     ports:
       - 5000:5000
     environment:
-      # - MONGO_DB=mongodb://root:Password1@ec2-54-159-208-255.compute-1.amazonaws.com:27017/helsinki-city-bike-db?authSource=admin
-      - REACT_APP_SERVER_URL=http://localhost:5000
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION}
+      - REACT_APP_SERVER_URL=${REACT_APP_SERVER_URL}
       - PORT=5000
       - NODE_ENV=production
     container_name: helsinki-city-bike-app
