@@ -4,7 +4,7 @@
   "description": "An app that displays a User Interface for showing data from journeys made with city bikes",
   "main": "server.ts",
   "scripts": {
-    "start": "node backend/server.js",
+    "start": "node backend/dist/server.js",
     "build": "tsc",
     "server": "nodemon backend/server.ts",
     "client": "npm start --prefix frontend",
