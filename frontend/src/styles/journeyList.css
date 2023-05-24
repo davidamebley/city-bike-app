@@ -116,3 +116,10 @@
     gap: 2px;
   }
 }
+@media screen and (max-width: 400px) {
+  .journey-filter-list {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 1rem);
+  }
+}
