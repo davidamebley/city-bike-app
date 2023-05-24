@@ -29,7 +29,7 @@ app.use('/api/stations', stationRoutes);
 
 // ------ Serve Our Frontend for Deployment
 if (process.env.NODE_ENV === 'production') {
-    // Setting our build folder for the static assets/files in our react frontend
+    // Setting our build folder for the static assets/files in our react frontend.
     app.use(express.static(path.join(__dirname, '../../frontend/build')));
 
     // Load the index html file that is in our static build folder when all other routes callded
