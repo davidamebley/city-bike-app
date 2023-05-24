@@ -5,7 +5,7 @@ import {
 
 // Create a Secrets Manager client
 const secretsmanager = new SecretsManagerClient({
-  region: "us-east-1",
+  region: process.env.AWS_REGION,
 });
 
 async function getMongoConnectionString() {
