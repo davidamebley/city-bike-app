@@ -92,6 +92,7 @@ export const JourneyList: React.FC = () => {
       setJourneys, 
       setTotalCount
       ).then(() => setLoading(false)); // Set loading to false when data is fetched
+      console.log(`Server URL...: ${serverUrl}`)
   }, [page, limit, debouncedSearch, sortBy, sortOrder, serverUrl, debouncedDistanceRange, debouncedDurationRange]);
 
   const handlePageChange = (
