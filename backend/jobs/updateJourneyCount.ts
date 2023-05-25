@@ -1,9 +1,8 @@
 import cron from 'node-cron';
-import mongoose from 'mongoose';
+import NodeCache from 'node-cache';
 
 import Journey from '../models/journey';
 import Counter from '../models/counter';
-import NodeCache from 'node-cache';
 
 const cache = new NodeCache();
 
