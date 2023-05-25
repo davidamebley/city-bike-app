@@ -1,4 +1,3 @@
-// station.ts
 import mongoose from 'mongoose';
 
 const stationSchema = new mongoose.Schema({
