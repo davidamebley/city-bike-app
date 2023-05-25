@@ -15,7 +15,9 @@ const app = express();
 connectDB();
 
 // Start the journey count update job
-startJourneyCountUpdateJob();
+startJourneyCountUpdateJob().catch((error) => {
+    console.error("Failed to start journey count update job:", error);
+});
 
 app.use(cors());
 // Enable CORS for your server
