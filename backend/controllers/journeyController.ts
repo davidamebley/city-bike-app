@@ -91,8 +91,6 @@ export const getJourneys = async (req: Request, res: Response) => {
           totalCount = counter ? counter.count : 0;
           cache.set(cacheKey, totalCount);
         }
-
-        console.log(`total couunt..: ${totalCount}`)
       
         res.status(200).json({
           page,
