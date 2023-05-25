@@ -183,7 +183,6 @@ export async function importStations(csvFile: string) {
 
           const x_coord = parseFloat(row['x']);
           const y_coord = parseFloat(row['y']);
-          // console.log(`fid: ${row['FID'].toString()}, name: ${row['Name']}, address: ${row['Osoite']}, x: ${x_coord}, y: ${row['y']}`)
 
           console.log(`row=> ${JSON.stringify(row)}`)
             const station: Station = {
