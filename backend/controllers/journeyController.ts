@@ -92,19 +92,6 @@ export const getJourneys = async (req: Request, res: Response) => {
           cache.set(cacheKey, totalCount);
         }
 
-        // Check if totalCount is in cache
-        /* let totalCount = cache.get('totalCount');
-
-        // If totalCount is not in cache, fetch from database and set cache
-        if (totalCount === undefined) {
-          const counter = await Counter.findById('journeyCount');
-          totalCount = counter ? counter.count : 0;
-          cache.set('totalCount', totalCount);
-        }
-
-        const counter = await Counter.findById('journeyCount');
-        const totalCount = counter ? counter.count : 0; */
-
         console.log(`total couunt..: ${totalCount}`)
       
         res.status(200).json({
