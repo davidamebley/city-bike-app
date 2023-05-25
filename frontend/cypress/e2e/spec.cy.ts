@@ -225,7 +225,7 @@ describe('Bike Station App', () => {
 
     cy.get('[data-testid="journey-item"]').each(($journeyItem) => {
       cy.wrap($journeyItem).invoke('text').then((text) => {
-        const durationText = text.match(/(\d+(\.\d+)?)\s?km/);
+        const durationText = text.match(/(\d+(\.\d+)?)\s?mins/);
         const duration = durationText && parseFloat(durationText[1]);
         expect(duration).to.be.at.most(maxDuration);
       });
