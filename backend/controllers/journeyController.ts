@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import NodeCache from 'node-cache';
 
 import Journey from "../models/journey";
+import Counter from '../models/counter';
 
 const cache = new NodeCache();
 
@@ -80,7 +81,7 @@ export const getJourneys = async (req: Request, res: Response) => {
         const cacheKey = `journeys:${search || 'all'}:${minDistance}:${maxDistance}:${minDuration}:${maxDuration}`;
 
         // Check if totalCount is in cache
-        let totalCount: number | undefined;
+        /* let totalCount: number | undefined;
 
         totalCount = cache.get(cacheKey);
       
@@ -88,7 +89,10 @@ export const getJourneys = async (req: Request, res: Response) => {
         if (totalCount === undefined) {
           totalCount = await Journey.countDocuments(query);
           cache.set(cacheKey, totalCount);
-        }
+        } */
+
+        const counter = await Counter.findById('journeyCount');
+        const totalCount = counter ? counter.count : 0;
       
         res.status(200).json({
           page,

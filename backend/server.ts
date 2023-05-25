@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import startJourneyCountUpdateJob from './jobs/updateJourneyCount';
 import cors from 'cors';
 import path from 'path';
 import { connectDB } from './config/db';
@@ -12,6 +13,9 @@ const app = express();
 
 // Connect to MongoDB
 connectDB();
+
+// Start the journey count update job
+startJourneyCountUpdateJob();
 
 app.use(cors());
 // Enable CORS for your server
