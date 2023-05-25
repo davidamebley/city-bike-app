@@ -197,7 +197,7 @@ describe('Bike Station App', () => {
     cy.get('[data-testid="journeys-list"]').should('be.visible');
 
     const maxDistance = 10;
-    cy.get('[data-testid="max-distance-input"]').type(maxDistance);
+    cy.get('[data-testid="max-distance-input"]').type(maxDistance.toString());
 
     cy.get('[data-testid="journey-item"]').each(($journeyItem) => {
       cy.wrap($journeyItem).invoke('text').then((text) => {
@@ -221,7 +221,7 @@ describe('Bike Station App', () => {
     cy.get('[data-testid="journeys-list"]').should('be.visible');
 
     const maxDuration = 10;
-    cy.get('[data-testid="max-duration-input"]').type(maxDuration);
+    cy.get('[data-testid="max-duration-input"]').type(maxDuration.toString());
 
     cy.get('[data-testid="journey-item"]').each(($journeyItem) => {
       cy.wrap($journeyItem).invoke('text').then((text) => {
