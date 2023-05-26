@@ -72,7 +72,7 @@ export const StationList: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     (async () => {
-      await fetchStations(serverUrl, page, limit, search, setStations, setTotalCount);
+      await fetchStations(serverUrl, page, limit, debouncedSearch, setStations, setTotalCount);
       setLoading(false);
     })();
   }, [page, limit, debouncedSearch, serverUrl]);
