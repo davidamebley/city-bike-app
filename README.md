@@ -153,6 +153,33 @@ To import the journey and station datasets into the database, follow these steps
 5. In the `backend/server.ts` file, call the `importJourneys()` and `importStations()` functions from `importCSV.ts`.
 6. Run the server to import the datasets into the database.
 
+## Tests
+To run the tests for the Helsinki City Bikes App, you can use the following commands:
+
+1. Unit Tests with Jest:
+   - Run the unit tests with the following command:
+     ```
+     npm test
+     ```
+   This command will execute the unit tests using Jest and provide the test results in the console.
+
+2. End-to-End Tests with Cypress:
+   - To run the Cypress tests in headless mode, use the command:
+     ```
+     npm run test:cypress
+     ```
+   This command will execute the Cypress tests in the command-line interface and provide the test results.
+
+   - To open the Cypress Test Runner for interactive test execution and debugging, use the command:
+     ```
+     npm run cypress:open
+     ```
+   This command will open the Cypress Test Runner window, allowing you to select and run individual tests or the entire test suite.
+
+Please ensure that you have the necessary dependencies installed and the required environment set up before running the tests.
+
+If you encounter any issues while running the tests or need further assistance, please let us know.
+
 ## Background Job and Caching
 
 To optimize the performance of the application, a background job is used to count the total number of documents in the journeys collection. This choice was made because the collection contains over 3 million records, and retrieving the total count for pagination purposes directly from the database could be resource-intensive. The background job periodically updates the total count and stores it in the Counter schema. 
