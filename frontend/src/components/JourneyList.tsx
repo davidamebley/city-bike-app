@@ -82,7 +82,7 @@ export const JourneyList: React.FC = () => {
       serverUrl, 
       page, 
       limit, 
-      search, 
+      debouncedSearch, 
       sortBy, 
       sortOrder, 
       debouncedDistanceRange[0],
