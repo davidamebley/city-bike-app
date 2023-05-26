@@ -93,52 +93,51 @@ Before running the Helsinki City Bikes Application locally, ensure that you have
 
 - To run the Helsinki City Bikes App locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/davidamebley/city-bike-app.git`
-2. Navigate to the project root directory: `cd helsinki-city-bikes-app`
-3. Install the dependencies:
-   - Backend: `npm install`
-   - Frontend: `cd frontend && npm install`
-4. Configure the environment variables:
-   - Backend: Create a `.env` file in the project root and set the following variables:
-     - AWS_REGION=<your-aws-region>
-     - AWS_ACCESS_KEY_ID=<your-aws-access-key-id>
-     - AWS_SECRET_ACCESS_KEY=<your-aws-secret-access-key>
-     - MONGO_URI=<your-mongodb-uri>
-     - PORT=<backend-server-port>
-     - REACT_APP_SERVER_URL=<backend-server-url>
-   - Frontend: Create a `.env` file in the `frontend` directory and set the following variable:
-     - REACT_APP_SERVER_URL=<backend-server-url>
-5. Import the data into the database:
-   - In the `backend/server.ts` file, call the `importJourneys()` and `importStations()` functions from `importCSV.ts`.
-6. Start the application:
-   - Backend: In the project root, run `npm run server`
-   - Frontend: `cd frontend && npm start`
-7. Access the application in your browser at `http://localhost:<frontend-port>`
+   1. Clone the repository: `git clone https://github.com/davidamebley/city-bike-app.git`
+   2. Navigate to the project root directory: `cd helsinki-city-bikes-app`
+   3. Install the dependencies:
+      - Backend: `npm install`
+      - Frontend: `cd frontend && npm install`
+   4. Configure the environment variables:
+      - Backend: Create a `.env` file in the project root and set the following variables:
+        - AWS_REGION=<your-aws-region>
+        - AWS_ACCESS_KEY_ID=<your-aws-access-key-id>
+        - AWS_SECRET_ACCESS_KEY=<your-aws-secret-access-key>
+        - MONGO_URI=<your-mongodb-uri>
+        - PORT=<backend-server-port>
+        - REACT_APP_SERVER_URL=<backend-server-url>
+      - Frontend: Create a `.env` file in the `frontend` directory and set the following variable:
+        - REACT_APP_SERVER_URL=<backend-server-url>
+   5. Import the data into the database:
+      - In the `backend/server.ts` file, call the `importJourneys()` and `importStations()` functions from `importCSV.ts`.
+   6. Start the application:
+      - Backend: In the project root, run `npm run server`
+      - Frontend: `cd frontend && npm start`
+   7. Access the application in your browser at `http://localhost:<frontend-port>`
 
 - To run the Helsinki City Bikes App using Docker, follow these steps:
 
-1. Make sure you have Docker installed on your machine.
-2. Open a terminal and navigate to the project root directory where the `Dockerfile` and `docker-compose.yml` files are located.
-3. Build the Docker images and start the containers by running the following command:
+   1. Make sure you have Docker installed on your machine.
+   2. Open a terminal and navigate to the project root directory where the `Dockerfile` and `docker-compose.yml` files are located.
+   3. Build the Docker images and start the containers by running the following command:
 
-   ```
-   docker-compose up --build
-   ```
+      ```
+      docker-compose up --build
+      ```
 
-   This command will build the frontend and backend images, create a container based on these images, and start the application.
+      This command will build the frontend and backend images, create a container based on these images, and start the application.
 
-4. Wait for the build process to complete. Once finished, you should see output in the terminal indicating that the app is running.
+   4. Wait for the build process to complete. Once finished, you should see output in the terminal indicating that the app is running.
 
-5. Access the application in your browser at `http://localhost:5000`.
+   5. Access the application in your browser at `http://localhost:5000`.
 
-   The app will be served by the Docker container running on port 5000.
+      The app will be served by the Docker container running on port 5000.
 
 By using Docker and the provided `Dockerfile` and `docker-compose.yml` files, the application's dependencies, configurations, and runtime environment are containerized and isolated. This allows for easier deployment and ensures consistency across different environments.
 
 Note: Before running the Docker containers, make sure to configure the necessary environment variables in the `docker-compose.yml` file. Replace the `${AWS_ACCESS_KEY_ID}`, `${AWS_SECRET_ACCESS_KEY}`, `${AWS_REGION}`, and `${REACT_APP_SERVER_URL}` placeholders with your actual values.
 
 If you encounter any issues or need further assistance, please let us know.
-
 ## Importing Dataset
 
 To import the journey and station datasets into the database, follow these steps:
