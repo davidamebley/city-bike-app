@@ -91,7 +91,7 @@ Before running the Helsinki City Bikes Application locally, ensure that you have
 
 ## Getting Started
 
-To run the Helsinki City Bikes App locally, follow these steps:
+- To run the Helsinki City Bikes App locally, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/davidamebley/city-bike-app.git`
 2. Navigate to the project root directory: `cd helsinki-city-bikes-app`
@@ -115,7 +115,7 @@ To run the Helsinki City Bikes App locally, follow these steps:
    - Frontend: `cd frontend && npm start`
 7. Access the application in your browser at `http://localhost:<frontend-port>`
 
-To run the Helsinki City Bikes App using Docker, follow these steps:
+- To run the Helsinki City Bikes App using Docker, follow these steps:
 
 1. Make sure you have Docker installed on your machine.
 2. Open a terminal and navigate to the project root directory where the `Dockerfile` and `docker-compose.yml` files are located.
@@ -159,6 +159,9 @@ To import the journey and station datasets into the database, follow these steps
 To optimize the performance of the application, a background job is used to count the total number of documents in the journeys collection. This choice was made because the collection contains over 3 million records, and retrieving the total count for pagination purposes directly from the database could be resource-intensive. The background job periodically updates the total count and stores it in the Counter schema. 
 
 In addition, the application utilizes nodecache for in-memory caching to store frequently requested data, such as the total count, reducing the load on the database. This helps improve the overall responsiveness and efficiency of the application.
+
+**Trade-offs:**
+Delayed data freshness (in terms of calculating the journey count and storing the result in a separate schema), and additional complexity are among the key trade-offs of this strategy. However, in the context of this application, these are unlikely to significantly impact the user experience as they provide substantial benefits in terms of improved performance for reading the total count of journeys.
 
 Please note that other alternatives, such as using Redis or
 
