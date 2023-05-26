@@ -63,7 +63,7 @@ The project follows a directory structure that separates the backend and fronten
 ## Features
 
 - View a list of bike stations in Helsinki
-- Search for stations by name
+- Search for stations by name or address
 - View detailed information about individual stations, including the number of journeys starting and ending at each station and the average distances of journeys
 - See the top 5 most popular return stations for journeys starting from a specific station
 - See the top 5 most popular departure stations for journeys ending at a specific station
