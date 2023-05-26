@@ -115,6 +115,30 @@ To run the Helsinki City Bikes App locally, follow these steps:
    - Frontend: `cd frontend && npm start`
 7. Access the application in your browser at `http://localhost:<frontend-port>`
 
+To run the Helsinki City Bikes App using Docker, follow these steps:
+
+1. Make sure you have Docker installed on your machine.
+2. Open a terminal and navigate to the project root directory where the `Dockerfile` and `docker-compose.yml` files are located.
+3. Build the Docker images and start the containers by running the following command:
+
+   ```
+   docker-compose up --build
+   ```
+
+   This command will build the frontend and backend images, create a container based on these images, and start the application.
+
+4. Wait for the build process to complete. Once finished, you should see output in the terminal indicating that the app is running.
+
+5. Access the application in your browser at `http://localhost:5000`.
+
+   The app will be served by the Docker container running on port 5000.
+
+By using Docker and the provided `Dockerfile` and `docker-compose.yml` files, the application's dependencies, configurations, and runtime environment are containerized and isolated. This allows for easier deployment and ensures consistency across different environments.
+
+Note: Before running the Docker containers, make sure to configure the necessary environment variables in the `docker-compose.yml` file. Replace the `${AWS_ACCESS_KEY_ID}`, `${AWS_SECRET_ACCESS_KEY}`, `${AWS_REGION}`, and `${REACT_APP_SERVER_URL}` placeholders with your actual values.
+
+If you encounter any issues or need further assistance, please let us know.
+
 ## Importing Dataset
 
 To import the journey and station datasets into the database, follow these steps:
