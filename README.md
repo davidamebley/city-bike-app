@@ -162,9 +162,7 @@ In addition, the application utilizes nodecache for in-memory caching to store f
 **Trade-offs:**
 Delayed data freshness (in terms of calculating the journey count and storing the result in a separate schema), and additional complexity are among the key trade-offs of this strategy. However, in the context of this application, these are unlikely to significantly impact the user experience as they provide substantial benefits in terms of improved performance for reading the total count of journeys.
 
-Please note that other alternatives, such as using Redis or
-
- implementing database partitioning, could be considered for handling large datasets in production environments. However, for the purpose of this project, the chosen approach of utilizing a background job, together with nodecache and the Counter schema, provides a suitable solution.
+Please note that other alternatives, such as using Redis or implementing database partitioning, could be considered for handling large datasets in production environments. However, for the purpose of this project, the chosen approach of utilizing a background job, together with nodecache and the Counter schema, provides a suitable solution.
 
 ## License
 
