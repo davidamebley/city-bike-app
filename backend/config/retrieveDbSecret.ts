@@ -21,11 +21,14 @@ async function getMongoConnectionString() {
 
     if (response.SecretString) {
       const secret = JSON.parse(response.SecretString);
+      if (process.env.NODE_ENV !== 'production') {
+        console.log(`Retrieved MongoDB connection string:: ${secret.mongoConnectionString}`);
+      }
       return secret.mongoConnectionString;
     } else {
       throw new Error("SecretString is undefined");
     }
-    
+
   } catch (err) {
     console.log(err);
   }
